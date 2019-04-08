@@ -35,6 +35,7 @@ public class BibliotecaApp {
 
     private static void printBooks(LibraryManager libraryManager, Printer printer){
         List<Book> libraryBooks = libraryManager.getBooks();
-        printer.printList(libraryBooks);
+        if(!libraryBooks.isEmpty())
+            printer.printList(libraryBooks);
     }
 }

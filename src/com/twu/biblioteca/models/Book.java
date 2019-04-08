@@ -44,6 +44,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Title : " + this.title;
+        return "Title: " + this.title +
+                " | Author: " + this.author +
+                " | Publication Year: " + this.publicationYear;
     }
 }
