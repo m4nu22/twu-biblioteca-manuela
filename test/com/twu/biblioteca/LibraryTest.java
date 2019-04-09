@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.enums.LibraryItemType;
+import com.twu.biblioteca.models.LibraryItem;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.Movie;
 import org.junit.Before;
@@ -26,10 +28,10 @@ public class LibraryTest {
     @Test
     public void getAvailableBooks_returnsEmptyList() {
         //arrange
-        library.setBooks(new ArrayList<>());
+        library.setItems(new ArrayList<>());
 
         //act
-        List<Book> books = library.getAvailableBooks();
+        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.book);
 
         //assert
         assertThat(books.isEmpty(), is(true));
@@ -38,11 +40,11 @@ public class LibraryTest {
     @Test
     public void getAvailableBooks_returnsBookList() {
         //arrange
-        List<Book> expectedBookList = getDefaultBookList();
-        library.setBooks(expectedBookList);
+        List<LibraryItem> expectedBookList = getDefaultBookList();
+        library.setItems(expectedBookList);
 
         //act
-        List<Book> books = library.getAvailableBooks();
+        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.book);
 
         //assert
         assertThat(expectedBookList, is(books));
@@ -51,12 +53,12 @@ public class LibraryTest {
     @Test
     public void getAvailableBooks_returnsOnlyAvailableBookList() {
         //arrange
-        List<Book> bookList = getDefaultBookList();
+        List<LibraryItem> bookList = getDefaultBookList();
         bookList.get(1).setCheckedOut(true);
-        library.setBooks(bookList);
+        library.setItems(bookList);
 
         //act
-        List<Book> books = library.getAvailableBooks();
+        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.book);
 
         //assert
         assertThat(books.size() == 1, is(true));
@@ -68,9 +70,9 @@ public class LibraryTest {
     @Test
     public void checkoutBook_notAvailable_returnsFalse() {
         //arrange
-        List<Book> expectedBookList = getDefaultBookList();
+        List<LibraryItem> expectedBookList = getDefaultBookList();
         expectedBookList.get(1).setCheckedOut(true);
-        library.setBooks(expectedBookList);
+        library.setItems(expectedBookList);
 
         //act
         boolean canCheckedOut = library.checkoutBook("Narnia");
@@ -82,8 +84,8 @@ public class LibraryTest {
     @Test
     public void checkoutBook_available_returnsTrue() {
         //arrange
-        List<Book> expectedBookList = getDefaultBookList();
-        library.setBooks(expectedBookList);
+        List<LibraryItem> expectedBookList = getDefaultBookList();
+        library.setItems(expectedBookList);
 
         //act
         boolean canCheckedOut = library.checkoutBook("Narnia");
@@ -95,8 +97,8 @@ public class LibraryTest {
     @Test
     public void checkoutBook_notFound_returnsFalse() {
         //arrange
-        List<Book> expectedBookList = getDefaultBookList();
-        library.setBooks(expectedBookList);
+        List<LibraryItem> expectedBookList = getDefaultBookList();
+        library.setItems(expectedBookList);
 
         //act
         boolean canCheckedOut = library.checkoutBook("Divergent");
@@ -108,9 +110,9 @@ public class LibraryTest {
     @Test
     public void ReturnBook_checkedOut_returnsTrue() {
         //arrange
-        List<Book> books = getDefaultBookList();
+        List<LibraryItem> books = getDefaultBookList();
         books.get(0).setCheckedOut(true);
-        library.setBooks(books);
+        library.setItems(books);
 
         //act
         boolean canReturnBook = library.returnBook("Harry Potter");
@@ -122,8 +124,8 @@ public class LibraryTest {
     @Test
     public void ReturnBook_notCheckedOut_returnsFalse() {
         //arrange
-        List<Book> books = getDefaultBookList();
-        library.setBooks(books);
+        List<LibraryItem> books = getDefaultBookList();
+        library.setItems(books);
 
         //act
         boolean canReturnBook = library.returnBook("Harry Potter");
@@ -135,8 +137,8 @@ public class LibraryTest {
     @Test
     public void ReturnBook_misspelled_returnsFalse() {
         //arrange
-        List<Book> books = getDefaultBookList();
-        library.setBooks(books);
+        List<LibraryItem> books = getDefaultBookList();
+        library.setItems(books);
 
         //act
         boolean canReturnBook = library.returnBook("Harry Pottet");
@@ -150,10 +152,10 @@ public class LibraryTest {
     @Test
     public void getAvailableMovies_returnsEmptyList(){
         //arrange
-        library.setMovies(new ArrayList<>());
+        library.setItems(new ArrayList<>());
 
         //act
-        List<Movie> movies = library.getAvailableMovies();
+        List<LibraryItem> movies = library.getAvailableItemsPerType(LibraryItemType.movie);
 
         //assert
         assertThat(movies.isEmpty(), is(true));
@@ -164,7 +166,7 @@ public class LibraryTest {
 
     }
 
-    public List<Book> getDefaultBookList() {
+    public List<LibraryItem> getDefaultBookList() {
         Book harryPotter = new Book(1, "Harry Potter", "J.K. Rolling", "2000");
         Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
         return new ArrayList<>(Arrays.asList(harryPotter, narnia));

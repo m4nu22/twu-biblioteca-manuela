@@ -1,11 +1,13 @@
 package com.twu.biblioteca.models;
 
+import com.twu.biblioteca.enums.LibraryItemType;
+
 public class Book extends LibraryItem {
 
     private String author;
 
     public Book(int id, String title, String author, String publicationYear) {
-        super(id, title, publicationYear);
+        super(id, title, publicationYear,LibraryItemType.book);
         this.author = author;
     }
 

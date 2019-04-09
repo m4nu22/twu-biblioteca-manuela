@@ -1,10 +1,12 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.Book;
+import com.twu.biblioteca.models.LibraryItem;
 import com.twu.biblioteca.models.Movie;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class BibliotecaApp {
 
@@ -24,23 +26,17 @@ public class BibliotecaApp {
     private static void initializeLibrary() {
         Library library = Library.getInstance();
 
-        ArrayList<Book> books = AddBooksToLibrary();
-        library.setBooks(books);
+        List<LibraryItem> items = AddItemsToLibrary();
 
-        ArrayList<Movie> movies = AddMoviesToLibrary();
-        library.setMovies(movies);
+        library.setItems(items);
     }
 
-    private static ArrayList<Book> AddBooksToLibrary() {
+    private static ArrayList<LibraryItem> AddItemsToLibrary() {
         Book hp = new Book(1, "Harry Potter", "J.K. Rolling", "2000");
         Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
-        return new ArrayList<>(Arrays.asList(hp, narnia));
-    }
-
-    private static ArrayList<Movie> AddMoviesToLibrary() {
         Movie memento = new Movie(1, "Memento", "2000", "Christopher Nolan", 10);
         Movie contratiempo = new Movie(2, "Contratiempo", "2017", "Oriol Paulo", 10);
         Movie aStarIsBorn = new Movie(2, "A star is born", "2018", "Bradley Cooper", 8);
-        return new ArrayList<>(Arrays.asList(memento, contratiempo,aStarIsBorn));
+        return new ArrayList<>(Arrays.asList(hp, narnia, memento, contratiempo,aStarIsBorn));
     }
 }

@@ -1,11 +1,13 @@
 package com.twu.biblioteca.models;
 
+import com.twu.biblioteca.enums.LibraryItemType;
+
 public class Movie extends LibraryItem {
     private String director;
     private float rating;
 
     public Movie(int id, String name, String year, String director, float rating) {
-        super(id, name, year);
+        super(id, name, year, LibraryItemType.movie);
         this.director = director;
         this.rating = rating;
     }

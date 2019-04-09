@@ -1,10 +1,12 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.enums.LibraryItemType;
 import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
 import com.twu.biblioteca.models.Book;
+import com.twu.biblioteca.models.LibraryItem;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
     }
 
     private void printAvailableBooks() {
-        List<Book> libraryBooks = library.getAvailableBooks();
+        List<LibraryItem> libraryBooks = library.getAvailableItemsPerType(LibraryItemType.book);
         if (!libraryBooks.isEmpty())
             printer.printList(libraryBooks);
     }

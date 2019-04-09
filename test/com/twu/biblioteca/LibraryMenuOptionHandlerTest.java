@@ -1,8 +1,10 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.enums.LibraryItemType;
 import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.IPrinter;
 import com.twu.biblioteca.models.Book;
+import com.twu.biblioteca.models.LibraryItem;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -25,7 +27,7 @@ public class LibraryMenuOptionHandlerTest {
     @Before
     public void initialize() {
         libraryMenuOptionHandler = new LibraryMenuOptionHandler(printerMock, consoleMock, libraryMock);
-        Mockito.when(libraryMock.getAvailableBooks()).thenReturn(AddBooksToLibrary());
+        Mockito.when(libraryMock.getAvailableItemsPerType(LibraryItemType.book)).thenReturn(AddBooksToLibrary());
     }
 
     @Test
@@ -111,7 +113,7 @@ public class LibraryMenuOptionHandlerTest {
         Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("That is not a valid book to return"));
     }
 
-    private ArrayList<Book> AddBooksToLibrary() {
+    private ArrayList<LibraryItem> AddBooksToLibrary() {
         Book hp = new Book(1, "Harry Potter", "J.K. Rolling", "2000");
         Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
         return new ArrayList<>(Arrays.asList(hp, narnia));

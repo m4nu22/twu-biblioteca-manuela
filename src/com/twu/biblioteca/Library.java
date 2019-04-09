@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.enums.LibraryItemType;
 import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.LibraryItem;
@@ -10,8 +11,7 @@ import java.util.stream.Collectors;
 
 public class Library implements ILibrary {
 
-    private List<Book> books;
-    private List<Movie> movies;
+    private List<LibraryItem> libraryItems;
 
     private static Library instance;
 
@@ -24,34 +24,14 @@ public class Library implements ILibrary {
         return instance;
     }
 
-    public List<Book> getAvailableBooks() {
-        return books.stream().filter(b -> !b.isCheckedOut()).collect(Collectors.toList());
-    }
-
-    public List<Movie> getAvailableMovies(){
-        return movies.stream().filter(b -> !b.isCheckedOut()).collect(Collectors.toList());
-    }
-
-    public List<Movie> getAllMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
-
-    public List<Book> getAllBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public List<LibraryItem> getAvailableItemsPerType(LibraryItemType type) {
+        return libraryItems.stream().filter(b -> !b.isCheckedOut() && type.equals(b.getType())).collect(Collectors.toList());
     }
 
     public boolean checkoutBook(String title) {
         boolean canCheckout = false;
 
-        Book book = books.stream().filter(b -> title.equalsIgnoreCase(b.getName()) && !b.isCheckedOut()).findFirst().orElse(null);
+        Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.book.equals(b.getType()) && title.equalsIgnoreCase(b.getName()) && !b.isCheckedOut()).findFirst().orElse(null);
 
         if (book != null) {
             canCheckout = true;
@@ -64,7 +44,7 @@ public class Library implements ILibrary {
     public boolean returnBook(String title) {
         boolean canReturn = false;
 
-        Book book = books.stream().filter(b -> title.equalsIgnoreCase(b.getName()) && b.isCheckedOut()).findFirst().orElse(null);
+        Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.book.equals(b.getType()) && title.equalsIgnoreCase(b.getName()) && b.isCheckedOut()).findFirst().orElse(null);
 
         if (book != null) {
             canReturn = true;
@@ -72,5 +52,10 @@ public class Library implements ILibrary {
         }
 
         return canReturn;
+    }
+
+    @Override
+    public void setItems(List<LibraryItem> items) {
+        this.libraryItems = items;
     }
 }
