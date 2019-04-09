@@ -65,4 +65,17 @@ public class LibraryMenuOptionHandlerTest {
         Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Thank you! Enjoy the book!"));
 
     }
+
+    @Test
+    public void handleMenuOptionSelected_checkoutNotAvailableBook_printsErrorMsg(){
+        //arrange
+        Mockito.when(consoleMock.readString()).thenReturn("Divergent");
+        Mockito.when(libraryMock.checkoutBook(anyString())).thenReturn(false);
+
+        //act
+        libraryMenuOptionHandler.handleMenuOptionSelected(2);
+
+        //assert
+        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Sorry, that book is not available"));
+    }
 }

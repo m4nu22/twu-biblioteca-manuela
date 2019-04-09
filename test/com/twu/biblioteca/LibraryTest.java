@@ -22,7 +22,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void getBooks_returnsEmptyList() {
+    public void getAvailableBooks_returnsEmptyList() {
         //arrange
         library.setBooks(new ArrayList<>());
 
@@ -34,7 +34,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void getBooks_returnsBookList(){
+    public void getAvailableBooks_returnsBookList(){
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         library.setBooks(expectedBookList);
@@ -47,7 +47,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void getBooks_returnsOnlyAvailableBookList(){
+    public void getAvailableBooks_returnsOnlyAvailableBookList(){
         //arrange
         List<Book> bookList = getDefaultBookList();
         bookList.get(1).setCheckedOut(true);

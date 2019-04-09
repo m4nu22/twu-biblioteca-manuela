@@ -51,5 +51,7 @@ public class LibraryMenuOptionHandler {
     private void printCheckoutMessage(boolean couldCheckout) {
         if(couldCheckout)
             printer.printLn("Thank you! Enjoy the book!");
+        else
+            printer.printLn("Sorry, that book is not available");
     }
 }
