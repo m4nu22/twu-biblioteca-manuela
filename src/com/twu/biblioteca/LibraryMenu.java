@@ -3,7 +3,6 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.enums.MenuOptions;
 import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.IPrinter;
-import com.twu.biblioteca.models.Book;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -27,11 +26,13 @@ public class LibraryMenu{
         IConsole console = new Console();
         boolean shouldQuit = false;
 
+        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer);
+
         while(!shouldQuit) {
             printMenuOfOptions();
             try {
                 int option = console.scan();
-                handleMenuOptionSelected(option);
+                handler.handleMenuOptionSelected(option);
 
                 if(option == 0)
                     shouldQuit = true;
@@ -66,25 +67,5 @@ public class LibraryMenu{
 
         return name;
 
-    }
-
-    private void handleMenuOptionSelected(int option) {
-        switch(option){
-            case 0:
-                printer.printLn("See you!");
-                break;
-            case 1:
-                printBooks(printer);
-                break;
-            default:
-                printer.printLn("Please select a valid option!");
-                break;
-        }
-    }
-
-    private void printBooks(IPrinter printer){
-        List<Book> libraryBooks = Library.getInstance().getBooks();
-        if(!libraryBooks.isEmpty())
-            printer.printList(libraryBooks);
     }
 }

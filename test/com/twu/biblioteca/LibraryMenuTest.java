@@ -1,14 +1,19 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.IPrinter;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+
+import java.util.InputMismatchException;
+
+import static junit.framework.TestCase.fail;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 
 public class LibraryMenuTest {
-
     LibraryMenu libraryMenu;
     IPrinter printerMock = Mockito.mock(IPrinter.class);
 
@@ -28,33 +33,46 @@ public class LibraryMenuTest {
 
     }
 
-    @Test
-    public void handleMenuOptionSelected_validBooksOption_printsBooks(){
+    public void ShowMenuAndHandleOptionSelection_invalidOption_printsError(){
+
+        //arrange
+        IConsole consoleMock = Mockito.mock(IConsole.class);
+        Mockito.when(consoleMock.scan()).thenThrow(new InputMismatchException());
+
+        //act && assert
+        try {
+            libraryMenu.ShowMenuAndHandleOptionSelection();
+            fail();
+        }catch(InputMismatchException e){
+            Mockito.verify(printerMock,times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
+        }
+    }
+
+    public void ShowMenuAndHandleOptionSelection_validOption_doesntThrowError(){
+
+        //arrange
+        IConsole consoleMock = Mockito.mock(IConsole.class);
+        Mockito.when(consoleMock.scan()).thenReturn(1);
+
         //act
-        libraryMenu.handleMenuOptionSelected(1);
+        libraryMenu.ShowMenuAndHandleOptionSelection();
 
         //assert
-        Mockito.verify(printerMock, times(1));
+        Mockito.verify(printerMock, never()).printLn(ArgumentMatchers.eq("Please select a valid option!"));
 
     }
 
-    @Test
-    public void handleMenuOptionSelected_invalidOption_printsErrorMessage(){
+    public void ShowMenuAndHandleOptionSelection_invalidNumberOption_printsErrorMsg(){
+
+        //arrange
+        IConsole consoleMock = Mockito.mock(IConsole.class);
+        Mockito.when(consoleMock.scan()).thenReturn(15);
+
         //act
-        libraryMenu.handleMenuOptionSelected(10);
+        libraryMenu.ShowMenuAndHandleOptionSelection();
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
-
-    }
-
-    @Test
-    public void handleMenuOptionSelected_quitOptionSelected_printSeeYou(){
-        //act
-        libraryMenu.handleMenuOptionSelected(10);
-
-        //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("See You!"));
+        Mockito.verify(printerMock, never()).printLn(ArgumentMatchers.eq("Please select a valid option!"));
 
     }
 }
