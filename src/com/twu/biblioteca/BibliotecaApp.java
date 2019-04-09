@@ -14,9 +14,9 @@ public class BibliotecaApp {
         Printer printer = new Printer();
         Console console = new Console();
         LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console, Library.getInstance());
+
         LibraryMenu libraryMenu = new LibraryMenu(printer, console, handler);
         libraryMenu.printWelcomeMessage();
-
 
         libraryMenu.ShowMenuAndHandleOptionSelection();
     }

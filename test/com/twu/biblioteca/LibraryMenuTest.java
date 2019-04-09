@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.interfaces.IConsole;
-import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
 import org.junit.Before;
@@ -11,7 +10,6 @@ import org.mockito.Mockito;
 
 import java.util.InputMismatchException;
 
-import static junit.framework.TestCase.fail;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 
