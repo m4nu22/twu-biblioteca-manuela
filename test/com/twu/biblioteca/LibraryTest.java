@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.Book;
+import com.twu.biblioteca.models.Movie;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +22,7 @@ public class LibraryTest {
         library = Library.getInstance();
     }
 
+    //Book tests
     @Test
     public void getAvailableBooks_returnsEmptyList() {
         //arrange
@@ -62,7 +64,6 @@ public class LibraryTest {
         bookList.removeAll(books);
         assertThat(bookList.stream().allMatch(b -> b.isCheckedOut()), is(true));
     }
-
 
     @Test
     public void checkoutBook_notAvailable_returnsFalse() {
@@ -142,6 +143,25 @@ public class LibraryTest {
 
         //assert
         assertThat(canReturnBook, is(false));
+    }
+
+
+    //Movie Tests
+    @Test
+    public void getAvailableMovies_returnsEmptyList(){
+        //arrange
+        library.setMovies(new ArrayList<>());
+
+        //act
+        List<Movie> movies = library.getAvailableMovies();
+
+        //assert
+        assertThat(movies.isEmpty(), is(true));
+    }
+
+    @Test
+    public void getAvailableMovies_returnsMovieList(){
+
     }
 
     public List<Book> getDefaultBookList() {

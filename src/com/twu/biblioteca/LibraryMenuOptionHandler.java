@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.interfaces.IConsole;
+import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.interfaces.IPrinter;
 import com.twu.biblioteca.models.Book;
 
@@ -10,10 +11,12 @@ public class LibraryMenuOptionHandler {
 
     private IPrinter printer;
     private IConsole console;
+    private ILibrary library;
 
-    public LibraryMenuOptionHandler(IPrinter printer, IConsole console) {
+    public LibraryMenuOptionHandler(IPrinter printer, IConsole console, ILibrary library) {
         this.printer = printer;
         this.console = console;
+        this.library = library;
     }
 
     public void handleMenuOptionSelected(int option) {
@@ -37,7 +40,7 @@ public class LibraryMenuOptionHandler {
     }
 
     private void printAvailableBooks() {
-        List<Book> libraryBooks = Library.getInstance().getAvailableBooks();
+        List<Book> libraryBooks = library.getAvailableBooks();
         if (!libraryBooks.isEmpty())
             printer.printList(libraryBooks);
     }
@@ -46,7 +49,6 @@ public class LibraryMenuOptionHandler {
         printer.printLn("Please type the name of the book you want to checkout");
         String bookTitle = console.readString();
 
-        Library library = Library.getInstance();
         boolean couldCheckout = library.checkoutBook(bookTitle);
         printCheckoutMessage(couldCheckout);
     }
@@ -62,7 +64,6 @@ public class LibraryMenuOptionHandler {
         printer.printLn("Please type the name of the book you want to return");
         String bookTitle = console.readString();
 
-        Library library = Library.getInstance();
         boolean couldReturn = library.returnBook(bookTitle);
         printReturnBookMessage(couldReturn);
     }

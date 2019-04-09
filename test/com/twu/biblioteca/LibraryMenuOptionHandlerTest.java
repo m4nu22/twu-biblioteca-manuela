@@ -2,10 +2,14 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.IPrinter;
+import com.twu.biblioteca.models.Book;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -20,7 +24,8 @@ public class LibraryMenuOptionHandlerTest {
 
     @Before
     public void initialize() {
-        libraryMenuOptionHandler = new LibraryMenuOptionHandler(printerMock, consoleMock);
+        libraryMenuOptionHandler = new LibraryMenuOptionHandler(printerMock, consoleMock, libraryMock);
+        Mockito.when(libraryMock.getAvailableBooks()).thenReturn(AddBooksToLibrary());
     }
 
     @Test
@@ -49,7 +54,7 @@ public class LibraryMenuOptionHandlerTest {
         libraryMenuOptionHandler.handleMenuOptionSelected(0);
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("See You!"));
+        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("See you!"));
 
     }
 
@@ -104,5 +109,11 @@ public class LibraryMenuOptionHandlerTest {
 
         //assert
         Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("That is not a valid book to return"));
+    }
+
+    private ArrayList<Book> AddBooksToLibrary() {
+        Book hp = new Book(1, "Harry Potter", "J.K. Rolling", "2000");
+        Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
+        return new ArrayList<>(Arrays.asList(hp, narnia));
     }
 }

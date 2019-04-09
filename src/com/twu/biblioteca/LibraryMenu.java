@@ -12,10 +12,12 @@ import java.util.List;
 public class LibraryMenu {
 
     private IPrinter printer;
+    private IConsole console;
     private List<MenuOptions> menuOptions = Arrays.asList(MenuOptions.values());
 
-    public LibraryMenu(IPrinter printer) {
+    public LibraryMenu(IPrinter printer, IConsole console) {
         this.printer = printer;
+        this.console = console;
     }
 
     public void printWelcomeMessage() {
@@ -23,10 +25,9 @@ public class LibraryMenu {
     }
 
     public void ShowMenuAndHandleOptionSelection() {
-        IConsole console = new Console();
         boolean shouldQuit = false;
 
-        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console);
+        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console, Library.getInstance());
 
         while (!shouldQuit) {
             printMenuOfOptions();
