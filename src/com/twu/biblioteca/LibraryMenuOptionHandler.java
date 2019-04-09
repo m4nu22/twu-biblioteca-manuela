@@ -40,10 +40,16 @@ public class LibraryMenuOptionHandler {
     }
 
     private void checkoutBook(){
-        printer.printLn("Plase Type the name of the book you want to checkout");
+        printer.printLn("Please type the name of the book you want to checkout");
         String bookTitle = console.readString();
 
         Library library = Library.getInstance();
-        library.checkoutBook(bookTitle);
+        boolean couldCheckout = library.checkoutBook(bookTitle);
+        printCheckoutMessage(couldCheckout);
+    }
+
+    private void printCheckoutMessage(boolean couldCheckout) {
+        if(couldCheckout)
+            printer.printLn("Thank you! Enjoy the book!");
     }
 }

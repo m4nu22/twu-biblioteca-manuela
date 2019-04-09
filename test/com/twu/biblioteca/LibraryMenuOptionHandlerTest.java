@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 
 public class LibraryMenuOptionHandlerTest {
@@ -13,6 +15,7 @@ public class LibraryMenuOptionHandlerTest {
     LibraryMenuOptionHandler libraryMenuOptionHandler;
     IPrinter printerMock = Mockito.mock(IPrinter.class);
     IConsole consoleMock = Mockito.mock(IConsole.class);
+    Library libraryMock = Mockito.mock(Library.class);
 
     @Before
     public void initialize(){
@@ -46,6 +49,20 @@ public class LibraryMenuOptionHandlerTest {
 
         //assert
         Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("See You!"));
+
+    }
+
+    @Test
+    public void handleMenuOptionSelected_checkoutAvailableBook_printsSuccessMsg(){
+        //arrange
+        Mockito.when(consoleMock.readString()).thenReturn("Narnia");
+        Mockito.when(libraryMock.checkoutBook(anyString())).thenReturn(true);
+
+        //act
+        libraryMenuOptionHandler.handleMenuOptionSelected(2);
+
+        //assert
+        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Thank you! Enjoy the book!"));
 
     }
 }

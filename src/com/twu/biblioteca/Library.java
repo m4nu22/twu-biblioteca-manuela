@@ -33,6 +33,7 @@ public class Library {
 
     public boolean checkoutBook(String title){
         boolean canCheckout = false;
+
         Book book = books.stream().filter(b -> title.equalsIgnoreCase(b.getTitle()) && !b.isCheckedOut()).findFirst().orElse(null);
 
         if(book != null) {
