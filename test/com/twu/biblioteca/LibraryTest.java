@@ -19,7 +19,7 @@ public class LibraryTest {
     public void getBooks_returnsEmptyList() {
         //arrange
         library = Library.getInstance();
-        library.init(new ArrayList<>());
+        library.setBooks(new ArrayList<>());
 
         //act
         List<Book> books = library.getBooks();
@@ -35,7 +35,7 @@ public class LibraryTest {
         Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
         List<Book> expectedBookList = new ArrayList<>(Arrays.asList(harryPotter,narnia));
         library = Library.getInstance();
-        library.init(expectedBookList);
+        library.setBooks(expectedBookList);
 
         //act
         List<Book> books = library.getBooks();

@@ -18,11 +18,11 @@ public class Library {
         return instance;
     }
 
-    public void init(List<Book> books){
-        this.books = books;
-    }
-
     public List<Book> getBooks(){
         return books;
+    }
+
+    public void setBooks(List<Book> books){
+        this.books = books;
     }
 }

@@ -15,6 +15,7 @@ public class LibraryMenu{
 
     public LibraryMenu(IPrinter printer){
         this.printer = printer;
+        printWelcomeMessage();
     }
 
     public void printWelcomeMessage(){
@@ -22,6 +23,7 @@ public class LibraryMenu{
     }
 
     public void printMenuOfOptions(){
+        printer.printLn("\nLibrary Menu Options:");
         for (MenuOptions opt: menuOptions) {
             String optionName = getMenuOptionNameFromEnum(opt);
             if(!optionName.equals(""))
@@ -33,6 +35,9 @@ public class LibraryMenu{
         String name = "";
 
         switch(opt){
+            case quit:
+                name = "0 - Quit";
+                break;
             case listBooks:
                 name = "1 - List of books";
                 break;
@@ -42,15 +47,21 @@ public class LibraryMenu{
 
     }
 
-    public static void handleMenuOptionSelected(int option, Printer printer) {
+    public static void handleMenuOptionSelected(int option, IPrinter printer) {
         switch(option){
+            case 0:
+                printer.printLn("See you!");
+                break;
             case 1:
                 printBooks(printer);
+                break;
+            default:
+                printer.printLn("Please select a valid option!");
                 break;
         }
     }
 
-    private static void printBooks(Printer printer){
+    private static void printBooks(IPrinter printer){
         List<Book> libraryBooks = Library.getInstance().getBooks();
         if(!libraryBooks.isEmpty())
             printer.printList(libraryBooks);
