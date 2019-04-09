@@ -6,12 +6,14 @@ public class Book {
     private String title;
     private String author;
     private String publicationYear;
+    private boolean isCheckedOut;
 
     public Book(int id, String title, String author, String publicationYear) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
+        this.isCheckedOut = false;
     }
 
     public int getId(){
@@ -30,6 +32,8 @@ public class Book {
         return publicationYear;
     }
 
+    public boolean isCheckedOut() { return isCheckedOut; }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -41,6 +45,8 @@ public class Book {
     public void setPublicationYear(String publicationYear) {
         this.publicationYear = publicationYear;
     }
+
+    public void setCheckedOut(boolean checkedOut) { this.isCheckedOut = checkedOut; }
 
     @Override
     public String toString() {

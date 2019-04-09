@@ -1,10 +1,12 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.enums.MenuOptions;
+import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.IPrinter;
 import com.twu.biblioteca.models.Book;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 
 
@@ -15,14 +17,33 @@ public class LibraryMenu{
 
     public LibraryMenu(IPrinter printer){
         this.printer = printer;
-        printWelcomeMessage();
     }
 
     public void printWelcomeMessage(){
         printer.printLn("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
 
-    public void printMenuOfOptions(){
+    public void ShowMenuAndHandleOptionSelection() {
+        IConsole console = new Console();
+        boolean shouldQuit = false;
+
+        while(!shouldQuit) {
+            printMenuOfOptions();
+            try {
+                int option = console.scan();
+                handleMenuOptionSelected(option);
+
+                if(option == 0)
+                    shouldQuit = true;
+
+            }catch(InputMismatchException e){
+                printer.printLn("Please select a valid option!");
+            }
+
+        }
+    }
+
+    private void printMenuOfOptions(){
         printer.printLn("\nLibrary Menu Options:");
         for (MenuOptions opt: menuOptions) {
             String optionName = getMenuOptionNameFromEnum(opt);
@@ -47,7 +68,7 @@ public class LibraryMenu{
 
     }
 
-    public static void handleMenuOptionSelected(int option, IPrinter printer) {
+    private void handleMenuOptionSelected(int option) {
         switch(option){
             case 0:
                 printer.printLn("See you!");
@@ -61,7 +82,7 @@ public class LibraryMenu{
         }
     }
 
-    private static void printBooks(IPrinter printer){
+    private void printBooks(IPrinter printer){
         List<Book> libraryBooks = Library.getInstance().getBooks();
         if(!libraryBooks.isEmpty())
             printer.printList(libraryBooks);
