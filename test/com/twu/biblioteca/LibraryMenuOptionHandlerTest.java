@@ -19,10 +19,10 @@ import static org.mockito.Mockito.times;
 
 public class LibraryMenuOptionHandlerTest {
 
-    LibraryMenuOptionHandler libraryMenuOptionHandler;
-    IPrinter printerMock = Mockito.mock(IPrinter.class);
-    IConsole consoleMock = Mockito.mock(IConsole.class);
-    Library libraryMock = Mockito.mock(Library.class);
+    private LibraryMenuOptionHandler libraryMenuOptionHandler;
+    private IPrinter printerMock = Mockito.mock(IPrinter.class);
+    private IConsole consoleMock = Mockito.mock(IConsole.class);
+    private Library libraryMock = Mockito.mock(Library.class);
 
     @Before
     public void initialize() {

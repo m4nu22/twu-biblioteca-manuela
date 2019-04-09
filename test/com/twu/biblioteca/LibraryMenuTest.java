@@ -14,10 +14,10 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 
 public class LibraryMenuTest {
-    LibraryMenu libraryMenu;
-    IPrinter printerMock = Mockito.mock(IPrinter.class);
-    IConsole consoleMock = Mockito.mock(IConsole.class);
-    ILibraryMenuOptionHandler handlerMock = Mockito.mock(ILibraryMenuOptionHandler.class);
+    private LibraryMenu libraryMenu;
+    private IPrinter printerMock = Mockito.mock(IPrinter.class);
+    private IConsole consoleMock = Mockito.mock(IConsole.class);
+    private ILibraryMenuOptionHandler handlerMock = Mockito.mock(ILibraryMenuOptionHandler.class);
 
     @Before
     public void initialize() {
