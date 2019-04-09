@@ -13,8 +13,11 @@ public class BibliotecaApp {
 
         Printer printer = new Printer();
         Console console = new Console();
-        LibraryMenu libraryMenu = new LibraryMenu(printer, console);
+        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console, Library.getInstance());
+        LibraryMenu libraryMenu = new LibraryMenu(printer, console, handler);
         libraryMenu.printWelcomeMessage();
+
+
         libraryMenu.ShowMenuAndHandleOptionSelection();
     }
 
@@ -35,9 +38,9 @@ public class BibliotecaApp {
     }
 
     private static ArrayList<Movie> AddMoviesToLibrary() {
-        Movie memento = new Movie(1, "Memento", "2000", "Christopher Nolan");
-        Movie contratiempo = new Movie(2, "Contratiempo", "2017", "Oriol Paulo");
-        Movie aStarIsBorn = new Movie(2, "A star is born", "2018", "Bradley Cooper");
+        Movie memento = new Movie(1, "Memento", "2000", "Christopher Nolan", 10);
+        Movie contratiempo = new Movie(2, "Contratiempo", "2017", "Oriol Paulo", 10);
+        Movie aStarIsBorn = new Movie(2, "A star is born", "2018", "Bradley Cooper", 8);
         return new ArrayList<>(Arrays.asList(memento, contratiempo,aStarIsBorn));
     }
 }

@@ -4,10 +4,10 @@ public class Movie extends LibraryItem {
     private String director;
     private float rating;
 
-    public Movie(int id, String name, String year, String director) {
+    public Movie(int id, String name, String year, String director, float rating) {
         super(id, name, year);
         this.director = director;
-        this.rating = 0;
+        this.rating = rating;
     }
 
     public String getDirector() {

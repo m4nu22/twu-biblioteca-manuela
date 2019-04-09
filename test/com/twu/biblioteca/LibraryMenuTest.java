@@ -38,22 +38,21 @@ public class LibraryMenuTest {
     public void ShowMenuAndHandleOptionSelection_invalidOption_printsError() {
 
         //arrange
-        Mockito.when(consoleMock.readInt()).thenThrow(new InputMismatchException());
+        Mockito.when(consoleMock.readInt()).thenThrow(new InputMismatchException()).thenReturn(0);
 
-        //act && assert
-        try {
+        //act
             libraryMenu.ShowMenuAndHandleOptionSelection();
-            fail();
-        } catch (InputMismatchException e) {
+
+        //assert
             Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
-        }
+
     }
 
     @Test
     public void ShowMenuAndHandleOptionSelection_validOption_doesntThrowError() {
 
         //arrange
-        Mockito.when(consoleMock.readInt()).thenReturn(1);
+        Mockito.when(consoleMock.readInt()).thenReturn(1).thenReturn(0);
 
         //act
         libraryMenu.ShowMenuAndHandleOptionSelection();
@@ -67,13 +66,13 @@ public class LibraryMenuTest {
     public void ShowMenuAndHandleOptionSelection_invalidNumberOption_printsErrorMsg() {
 
         //arrange
-        Mockito.when(consoleMock.readInt()).thenReturn(15);
+        Mockito.when(consoleMock.readInt()).thenReturn(15).thenReturn(0);
 
         //act
         libraryMenu.ShowMenuAndHandleOptionSelection();
 
         //assert
-        Mockito.verify(printerMock).printLn(ArgumentMatchers.eq("Please select a valid option!"));
+        Mockito.verify(printerMock,times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
 
     }
 }

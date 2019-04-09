@@ -13,11 +13,13 @@ public class LibraryMenu {
 
     private IPrinter printer;
     private IConsole console;
+    private LibraryMenuOptionHandler handler;
     private List<MenuOptions> menuOptions = Arrays.asList(MenuOptions.values());
 
-    public LibraryMenu(IPrinter printer, IConsole console) {
+    public LibraryMenu(IPrinter printer, IConsole console, LibraryMenuOptionHandler handler) {
         this.printer = printer;
         this.console = console;
+        this.handler = handler;
     }
 
     public void printWelcomeMessage() {
@@ -26,8 +28,6 @@ public class LibraryMenu {
 
     public void ShowMenuAndHandleOptionSelection() {
         boolean shouldQuit = false;
-
-        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console, Library.getInstance());
 
         while (!shouldQuit) {
             printMenuOfOptions();
@@ -41,7 +41,6 @@ public class LibraryMenu {
             } catch (InputMismatchException e) {
                 printer.printLn("Please select a valid option!");
             }
-
         }
     }
 
