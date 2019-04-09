@@ -11,13 +11,13 @@ public class LibraryMenuOptionHandler {
     private IPrinter printer;
     private IConsole console;
 
-    public LibraryMenuOptionHandler(IPrinter printer, IConsole console){
+    public LibraryMenuOptionHandler(IPrinter printer, IConsole console) {
         this.printer = printer;
         this.console = console;
     }
 
     public void handleMenuOptionSelected(int option) {
-        switch(option){
+        switch (option) {
             case 0:
                 printer.printLn("See you!");
                 break;
@@ -36,13 +36,13 @@ public class LibraryMenuOptionHandler {
         }
     }
 
-    private void printAvailableBooks(){
+    private void printAvailableBooks() {
         List<Book> libraryBooks = Library.getInstance().getAvailableBooks();
-        if(!libraryBooks.isEmpty())
+        if (!libraryBooks.isEmpty())
             printer.printList(libraryBooks);
     }
 
-    private void checkoutBook(){
+    private void checkoutBook() {
         printer.printLn("Please type the name of the book you want to checkout");
         String bookTitle = console.readString();
 
@@ -52,18 +52,25 @@ public class LibraryMenuOptionHandler {
     }
 
     private void printCheckoutMessage(boolean couldCheckout) {
-        if(couldCheckout)
+        if (couldCheckout)
             printer.printLn("Thank you! Enjoy the book!");
         else
             printer.printLn("Sorry, that book is not available");
     }
 
-    private void returnBook(){
+    private void returnBook() {
         printer.printLn("Please type the name of the book you want to return");
         String bookTitle = console.readString();
 
         Library library = Library.getInstance();
         boolean couldReturn = library.returnBook(bookTitle);
-        //printCheckoutMessage(couldReturn);
+        printReturnBookMessage(couldReturn);
+    }
+
+    private void printReturnBookMessage(boolean couldReturn) {
+        if (couldReturn)
+            printer.printLn("Thank you for returning the book");
+        else
+            printer.printLn("That is not a valid book to return");
     }
 }

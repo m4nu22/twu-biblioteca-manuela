@@ -18,7 +18,7 @@ public class LibraryMenuTest {
     IPrinter printerMock = Mockito.mock(IPrinter.class);
 
     @Before
-    public void initialize(){
+    public void initialize() {
         libraryMenu = new LibraryMenu(printerMock);
     }
 
@@ -29,11 +29,12 @@ public class LibraryMenuTest {
         libraryMenu.printWelcomeMessage();
 
         //assert
-        Mockito.verify(printerMock,times(1)).printLn(ArgumentMatchers.eq("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!"));
+        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!"));
 
     }
 
-    public void ShowMenuAndHandleOptionSelection_invalidOption_printsError(){
+    @Test
+    public void ShowMenuAndHandleOptionSelection_invalidOption_printsError() {
 
         //arrange
         IConsole consoleMock = Mockito.mock(IConsole.class);
@@ -43,12 +44,13 @@ public class LibraryMenuTest {
         try {
             libraryMenu.ShowMenuAndHandleOptionSelection();
             fail();
-        }catch(InputMismatchException e){
-            Mockito.verify(printerMock,times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
+        } catch (InputMismatchException e) {
+            Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
         }
     }
 
-    public void ShowMenuAndHandleOptionSelection_validOption_doesntThrowError(){
+    @Test
+    public void ShowMenuAndHandleOptionSelection_validOption_doesntThrowError() {
 
         //arrange
         IConsole consoleMock = Mockito.mock(IConsole.class);
@@ -62,7 +64,8 @@ public class LibraryMenuTest {
 
     }
 
-    public void ShowMenuAndHandleOptionSelection_invalidNumberOption_printsErrorMsg(){
+    @Test
+    public void ShowMenuAndHandleOptionSelection_invalidNumberOption_printsErrorMsg() {
 
         //arrange
         IConsole consoleMock = Mockito.mock(IConsole.class);

@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Printer implements IPrinter {
 
-    public void printLn(String text){
+    public void printLn(String text) {
         System.out.println(text);
     }
 
-    public <T> void printList(List<T> list){
-        for (T item: list) {
+    public <T> void printList(List<T> list) {
+        for (T item : list) {
             System.out.println(item);
         }
     }

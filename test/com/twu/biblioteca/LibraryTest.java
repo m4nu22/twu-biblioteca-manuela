@@ -17,7 +17,7 @@ public class LibraryTest {
     private Library library;
 
     @Before
-    public void initialize(){
+    public void initialize() {
         library = Library.getInstance();
     }
 
@@ -34,7 +34,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void getAvailableBooks_returnsBookList(){
+    public void getAvailableBooks_returnsBookList() {
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         library.setBooks(expectedBookList);
@@ -47,7 +47,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void getAvailableBooks_returnsOnlyAvailableBookList(){
+    public void getAvailableBooks_returnsOnlyAvailableBookList() {
         //arrange
         List<Book> bookList = getDefaultBookList();
         bookList.get(1).setCheckedOut(true);
@@ -65,7 +65,7 @@ public class LibraryTest {
 
 
     @Test
-    public void checkoutBook_notAvailable_returnsFalse(){
+    public void checkoutBook_notAvailable_returnsFalse() {
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         expectedBookList.get(1).setCheckedOut(true);
@@ -75,11 +75,11 @@ public class LibraryTest {
         boolean canCheckedOut = library.checkoutBook("Narnia");
 
         //assert
-        assertThat(canCheckedOut,is(false));
+        assertThat(canCheckedOut, is(false));
     }
 
     @Test
-    public void checkoutBook_available_returnsTrue(){
+    public void checkoutBook_available_returnsTrue() {
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         library.setBooks(expectedBookList);
@@ -88,11 +88,11 @@ public class LibraryTest {
         boolean canCheckedOut = library.checkoutBook("Narnia");
 
         //assert
-        assertThat(canCheckedOut,is(true));
+        assertThat(canCheckedOut, is(true));
     }
 
     @Test
-    public void checkoutBook_notFound_returnsFalse(){
+    public void checkoutBook_notFound_returnsFalse() {
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         library.setBooks(expectedBookList);
@@ -101,11 +101,11 @@ public class LibraryTest {
         boolean canCheckedOut = library.checkoutBook("Divergent");
 
         //assert
-        assertThat(canCheckedOut,is(false));
+        assertThat(canCheckedOut, is(false));
     }
 
     @Test
-    public void ReturnBook_checkedOut_returnsTrue(){
+    public void ReturnBook_checkedOut_returnsTrue() {
         //arrange
         List<Book> books = getDefaultBookList();
         books.get(0).setCheckedOut(true);
@@ -115,11 +115,11 @@ public class LibraryTest {
         boolean canReturnBook = library.returnBook("Harry Potter");
 
         //assert
-        assertThat(canReturnBook,is(true));
+        assertThat(canReturnBook, is(true));
     }
 
     @Test
-    public void ReturnBook_notCheckedOut_returnsFalse(){
+    public void ReturnBook_notCheckedOut_returnsFalse() {
         //arrange
         List<Book> books = getDefaultBookList();
         library.setBooks(books);
@@ -128,11 +128,11 @@ public class LibraryTest {
         boolean canReturnBook = library.returnBook("Harry Potter");
 
         //assert
-        assertThat(canReturnBook,is(false));
+        assertThat(canReturnBook, is(false));
     }
 
     @Test
-    public void ReturnBook_misspelled_returnsFalse(){
+    public void ReturnBook_misspelled_returnsFalse() {
         //arrange
         List<Book> books = getDefaultBookList();
         library.setBooks(books);
@@ -141,13 +141,13 @@ public class LibraryTest {
         boolean canReturnBook = library.returnBook("Harry Pottet");
 
         //assert
-        assertThat(canReturnBook,is(false));
+        assertThat(canReturnBook, is(false));
     }
 
-    public List<Book> getDefaultBookList(){
+    public List<Book> getDefaultBookList() {
         Book harryPotter = new Book(1, "Harry Potter", "J.K. Rolling", "2000");
         Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
-        return new ArrayList<>(Arrays.asList(harryPotter,narnia));
+        return new ArrayList<>(Arrays.asList(harryPotter, narnia));
     }
 
 }

@@ -9,16 +9,16 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 
-public class LibraryMenu{
+public class LibraryMenu {
 
     private IPrinter printer;
     private List<MenuOptions> menuOptions = Arrays.asList(MenuOptions.values());
 
-    public LibraryMenu(IPrinter printer){
+    public LibraryMenu(IPrinter printer) {
         this.printer = printer;
     }
 
-    public void printWelcomeMessage(){
+    public void printWelcomeMessage() {
         printer.printLn("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
 
@@ -28,35 +28,35 @@ public class LibraryMenu{
 
         LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console);
 
-        while(!shouldQuit) {
+        while (!shouldQuit) {
             printMenuOfOptions();
             try {
                 int option = console.readInt();
                 handler.handleMenuOptionSelected(option);
 
-                if(option == 0)
+                if (option == 0)
                     shouldQuit = true;
 
-            }catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 printer.printLn("Please select a valid option!");
             }
 
         }
     }
 
-    private void printMenuOfOptions(){
+    private void printMenuOfOptions() {
         printer.printLn("\nLibrary Menu Options:");
-        for (MenuOptions opt: menuOptions) {
+        for (MenuOptions opt : menuOptions) {
             String optionName = getMenuOptionNameFromEnum(opt);
-            if(!optionName.equals(""))
+            if (!optionName.equals(""))
                 printer.printLn(optionName);
         }
     }
 
-    private String getMenuOptionNameFromEnum(MenuOptions opt){
+    private String getMenuOptionNameFromEnum(MenuOptions opt) {
         String name = "";
 
-        switch(opt){
+        switch (opt) {
             case quit:
                 name = "0 - Quit";
                 break;

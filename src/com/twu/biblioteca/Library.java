@@ -10,33 +10,34 @@ public class Library {
     private List<Book> books;
     private static Library instance;
 
-    private Library(){}
+    private Library() {
+    }
 
-    public static Library getInstance(){
-        if(instance == null)
+    public static Library getInstance() {
+        if (instance == null)
             instance = new Library();
 
         return instance;
     }
 
-    public List<Book> getAvailableBooks(){
+    public List<Book> getAvailableBooks() {
         return books.stream().filter(b -> !b.isCheckedOut()).collect(Collectors.toList());
     }
 
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books){
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 
-    public boolean checkoutBook(String title){
+    public boolean checkoutBook(String title) {
         boolean canCheckout = false;
 
         Book book = books.stream().filter(b -> title.equalsIgnoreCase(b.getTitle()) && !b.isCheckedOut()).findFirst().orElse(null);
 
-        if(book != null) {
+        if (book != null) {
             canCheckout = true;
             book.setCheckedOut(true);
         }
@@ -44,12 +45,12 @@ public class Library {
         return canCheckout;
     }
 
-    public boolean returnBook(String title){
+    public boolean returnBook(String title) {
         boolean canReturn = false;
 
         Book book = books.stream().filter(b -> title.equalsIgnoreCase(b.getTitle()) && b.isCheckedOut()).findFirst().orElse(null);
 
-        if(book != null){
+        if (book != null) {
             canReturn = true;
             book.setCheckedOut(false);
         }

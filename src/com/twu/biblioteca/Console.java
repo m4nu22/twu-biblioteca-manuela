@@ -1,4 +1,5 @@
 package com.twu.biblioteca;
+
 import com.twu.biblioteca.interfaces.IConsole;
 
 import java.util.InputMismatchException;
@@ -11,7 +12,7 @@ public class Console implements IConsole {
         return in.nextInt();
     }
 
-    public String readString(){
+    public String readString() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
