@@ -26,12 +26,12 @@ public class LibraryMenu{
         IConsole console = new Console();
         boolean shouldQuit = false;
 
-        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer);
+        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console);
 
         while(!shouldQuit) {
             printMenuOfOptions();
             try {
-                int option = console.scan();
+                int option = console.readInt();
                 handler.handleMenuOptionSelected(option);
 
                 if(option == 0)
@@ -62,6 +62,9 @@ public class LibraryMenu{
                 break;
             case listBooks:
                 name = "1 - List of books";
+                break;
+            case checkoutBook:
+                name = "2 - Checkout Book";
                 break;
         }
 

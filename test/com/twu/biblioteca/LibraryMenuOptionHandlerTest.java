@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.IPrinter;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,10 +12,11 @@ public class LibraryMenuOptionHandlerTest {
 
     LibraryMenuOptionHandler libraryMenuOptionHandler;
     IPrinter printerMock = Mockito.mock(IPrinter.class);
+    IConsole consoleMock = Mockito.mock(IConsole.class);
 
     @Before
     public void initialize(){
-        libraryMenuOptionHandler = new LibraryMenuOptionHandler(printerMock);
+        libraryMenuOptionHandler = new LibraryMenuOptionHandler(printerMock, consoleMock);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.IPrinter;
 import com.twu.biblioteca.models.Book;
 
@@ -8,9 +9,11 @@ import java.util.List;
 public class LibraryMenuOptionHandler {
 
     private IPrinter printer;
+    private IConsole console;
 
-    public LibraryMenuOptionHandler(IPrinter printer){
+    public LibraryMenuOptionHandler(IPrinter printer, IConsole console){
         this.printer = printer;
+        this.console = console;
     }
 
     public void handleMenuOptionSelected(int option) {
@@ -19,7 +22,10 @@ public class LibraryMenuOptionHandler {
                 printer.printLn("See you!");
                 break;
             case 1:
-                printBooks(printer);
+                printAvailableBooks();
+                break;
+            case 2:
+                checkoutBook();
                 break;
             default:
                 printer.printLn("Please select a valid option!");
@@ -27,9 +33,17 @@ public class LibraryMenuOptionHandler {
         }
     }
 
-    private void printBooks(IPrinter printer){
-        List<Book> libraryBooks = Library.getInstance().getBooks();
+    private void printAvailableBooks(){
+        List<Book> libraryBooks = Library.getInstance().getAvailableBooks();
         if(!libraryBooks.isEmpty())
             printer.printList(libraryBooks);
+    }
+
+    private void checkoutBook(){
+        printer.printLn("Plase Type the name of the book you want to checkout");
+        String bookTitle = console.readString();
+
+        Library library = Library.getInstance();
+        library.checkoutBook(bookTitle);
     }
 }

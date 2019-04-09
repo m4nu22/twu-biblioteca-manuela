@@ -6,8 +6,13 @@ import java.util.Scanner;
 
 public class Console implements IConsole {
 
-    public int scan() throws InputMismatchException {
+    public int readInt() throws InputMismatchException {
         Scanner in = new Scanner(System.in);
         return in.nextInt();
+    }
+
+    public String readString(){
+        Scanner in = new Scanner(System.in);
+        return in.nextLine();
     }
 }

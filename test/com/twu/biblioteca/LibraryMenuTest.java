@@ -37,7 +37,7 @@ public class LibraryMenuTest {
 
         //arrange
         IConsole consoleMock = Mockito.mock(IConsole.class);
-        Mockito.when(consoleMock.scan()).thenThrow(new InputMismatchException());
+        Mockito.when(consoleMock.readInt()).thenThrow(new InputMismatchException());
 
         //act && assert
         try {
@@ -52,7 +52,7 @@ public class LibraryMenuTest {
 
         //arrange
         IConsole consoleMock = Mockito.mock(IConsole.class);
-        Mockito.when(consoleMock.scan()).thenReturn(1);
+        Mockito.when(consoleMock.readInt()).thenReturn(1);
 
         //act
         libraryMenu.ShowMenuAndHandleOptionSelection();
@@ -66,7 +66,7 @@ public class LibraryMenuTest {
 
         //arrange
         IConsole consoleMock = Mockito.mock(IConsole.class);
-        Mockito.when(consoleMock.scan()).thenReturn(15);
+        Mockito.when(consoleMock.readInt()).thenReturn(15);
 
         //act
         libraryMenu.ShowMenuAndHandleOptionSelection();
