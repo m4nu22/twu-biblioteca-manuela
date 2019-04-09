@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.interfaces.IConsole;
+import com.twu.biblioteca.interfaces.ILibrary;
+import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,10 +19,11 @@ public class LibraryMenuTest {
     LibraryMenu libraryMenu;
     IPrinter printerMock = Mockito.mock(IPrinter.class);
     IConsole consoleMock = Mockito.mock(IConsole.class);
+    ILibraryMenuOptionHandler handlerMock = Mockito.mock(ILibraryMenuOptionHandler.class);
 
     @Before
     public void initialize() {
-        libraryMenu = new LibraryMenu(printerMock, consoleMock);
+        libraryMenu = new LibraryMenu(printerMock, consoleMock, handlerMock);
     }
 
     @Test
@@ -59,20 +62,6 @@ public class LibraryMenuTest {
 
         //assert
         Mockito.verify(printerMock, never()).printLn(ArgumentMatchers.eq("Please select a valid option!"));
-
-    }
-
-    @Test
-    public void ShowMenuAndHandleOptionSelection_invalidNumberOption_printsErrorMsg() {
-
-        //arrange
-        Mockito.when(consoleMock.readInt()).thenReturn(15).thenReturn(0);
-
-        //act
-        libraryMenu.ShowMenuAndHandleOptionSelection();
-
-        //assert
-        Mockito.verify(printerMock,times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
 
     }
 }

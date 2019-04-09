@@ -2,12 +2,13 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.ILibrary;
+import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
 import com.twu.biblioteca.models.Book;
 
 import java.util.List;
 
-public class LibraryMenuOptionHandler {
+public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
 
     private IPrinter printer;
     private IConsole console;

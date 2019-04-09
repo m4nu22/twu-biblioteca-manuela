@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <wildcardResourcePatterns>
-      <entry name="?*.properties" />
-      <entry name="?*.xml" />
-      <entry name="?*.gif" />
-      <entry name="?*.png" />
-      <entry name="?*.jpeg" />
-      <entry name="?*.jpg" />
-      <entry name="?*.html" />
-      <entry name="?*.dtd" />
-      <entry name="?*.tld" />
-      <entry name="?*.ftl" />
-    </wildcardResourcePatterns>
-    <bytecodeTargetLevel>
-      <module name="com.twu.biblioteca.biblioteca.main" target="1.8" />
-      <module name="com.twu.biblioteca.biblioteca.test" target="1.8" />
-      <module name="TWU_Biblioteca-master.main" target="1.8" />
-      <module name="TWU_Biblioteca-master.test" target="1.8" />
-    </bytecodeTargetLevel>
+    <option name="USE_RELEASE_OPTION" value="false" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="my-app" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8" />
   </component>
 </project>

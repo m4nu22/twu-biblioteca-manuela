@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.enums.MenuOptions;
 import com.twu.biblioteca.interfaces.IConsole;
+import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
 
 import java.util.Arrays;
@@ -13,10 +14,10 @@ public class LibraryMenu {
 
     private IPrinter printer;
     private IConsole console;
-    private LibraryMenuOptionHandler handler;
+    private ILibraryMenuOptionHandler handler;
     private List<MenuOptions> menuOptions = Arrays.asList(MenuOptions.values());
 
-    public LibraryMenu(IPrinter printer, IConsole console, LibraryMenuOptionHandler handler) {
+    public LibraryMenu(IPrinter printer, IConsole console, ILibraryMenuOptionHandler handler) {
         this.printer = printer;
         this.console = console;
         this.handler = handler;
