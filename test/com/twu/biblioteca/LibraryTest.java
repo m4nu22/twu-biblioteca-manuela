@@ -65,7 +65,7 @@ public class LibraryTest {
 
 
     @Test
-    public void checkoutBook_notAvailable_ReturnsFalse(){
+    public void checkoutBook_notAvailable_returnsFalse(){
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         expectedBookList.get(1).setCheckedOut(true);
@@ -79,7 +79,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void checkoutBook_available_ReturnsTrue(){
+    public void checkoutBook_available_returnsTrue(){
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         library.setBooks(expectedBookList);
@@ -89,11 +89,10 @@ public class LibraryTest {
 
         //assert
         assertThat(canCheckedOut,is(true));
-
     }
 
     @Test
-    public void checkoutBook_notFound_ReturnsFalse(){
+    public void checkoutBook_notFound_returnsFalse(){
         //arrange
         List<Book> expectedBookList = getDefaultBookList();
         library.setBooks(expectedBookList);
@@ -103,7 +102,46 @@ public class LibraryTest {
 
         //assert
         assertThat(canCheckedOut,is(false));
+    }
 
+    @Test
+    public void ReturnBook_checkedOut_returnsTrue(){
+        //arrange
+        List<Book> books = getDefaultBookList();
+        books.get(0).setCheckedOut(true);
+        library.setBooks(books);
+
+        //act
+        boolean canReturnBook = library.returnBook("Harry Potter");
+
+        //assert
+        assertThat(canReturnBook,is(true));
+    }
+
+    @Test
+    public void ReturnBook_notCheckedOut_returnsFalse(){
+        //arrange
+        List<Book> books = getDefaultBookList();
+        library.setBooks(books);
+
+        //act
+        boolean canReturnBook = library.returnBook("Harry Potter");
+
+        //assert
+        assertThat(canReturnBook,is(false));
+    }
+
+    @Test
+    public void ReturnBook_misspelled_returnsFalse(){
+        //arrange
+        List<Book> books = getDefaultBookList();
+        library.setBooks(books);
+
+        //act
+        boolean canReturnBook = library.returnBook("Harry Pottet");
+
+        //assert
+        assertThat(canReturnBook,is(false));
     }
 
     public List<Book> getDefaultBookList(){

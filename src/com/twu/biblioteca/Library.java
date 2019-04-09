@@ -43,4 +43,17 @@ public class Library {
 
         return canCheckout;
     }
+
+    public boolean returnBook(String title){
+        boolean canReturn = false;
+
+        Book book = books.stream().filter(b -> title.equalsIgnoreCase(b.getTitle()) && b.isCheckedOut()).findFirst().orElse(null);
+
+        if(book != null){
+            canReturn = true;
+            book.setCheckedOut(false);
+        }
+
+        return canReturn;
+    }
 }

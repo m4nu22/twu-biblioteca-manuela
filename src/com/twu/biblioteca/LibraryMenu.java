@@ -66,6 +66,9 @@ public class LibraryMenu{
             case checkoutBook:
                 name = "2 - Checkout Book";
                 break;
+            case returnBook:
+                name = "3 - Return Book";
+                break;
         }
 
         return name;

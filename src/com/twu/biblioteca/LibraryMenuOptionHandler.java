@@ -27,6 +27,9 @@ public class LibraryMenuOptionHandler {
             case 2:
                 checkoutBook();
                 break;
+            case 3:
+                returnBook();
+                break;
             default:
                 printer.printLn("Please select a valid option!");
                 break;
@@ -53,5 +56,14 @@ public class LibraryMenuOptionHandler {
             printer.printLn("Thank you! Enjoy the book!");
         else
             printer.printLn("Sorry, that book is not available");
+    }
+
+    private void returnBook(){
+        printer.printLn("Please type the name of the book you want to return");
+        String bookTitle = console.readString();
+
+        Library library = Library.getInstance();
+        boolean couldReturn = library.returnBook(bookTitle);
+        //printCheckoutMessage(couldReturn);
     }
 }

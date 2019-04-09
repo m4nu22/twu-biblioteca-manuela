@@ -4,4 +4,5 @@ public enum MenuOptions {
     quit,
     listBooks,
     checkoutBook,
+    returnBook
 }
