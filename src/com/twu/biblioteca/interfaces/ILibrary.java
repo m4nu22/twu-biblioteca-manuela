@@ -2,7 +2,6 @@ package com.twu.biblioteca.interfaces;
 
 import com.twu.biblioteca.Library;
 import com.twu.biblioteca.enums.LibraryItemType;
-import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.LibraryItem;
 
 import java.util.List;

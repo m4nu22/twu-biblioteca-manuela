@@ -111,7 +111,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void ReturnBook_checkedOut_returnsTrue() {
+    public void returnBook_checkedOut_returnsTrue() {
         //arrange
         List<LibraryItem> books = getDefaultMixedList();
         books.get(0).setCheckedOut(true);
@@ -125,7 +125,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void ReturnBook_notCheckedOut_returnsFalse() {
+    public void returnBook_notCheckedOut_returnsFalse() {
         //arrange
         List<LibraryItem> books = getDefaultMixedList();
         library.setItems(books);
@@ -138,7 +138,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void ReturnBook_misspelled_returnsFalse() {
+    public void returnBook_misspelled_returnsFalse() {
         //arrange
         List<LibraryItem> books = getDefaultMixedList();
         library.setItems(books);

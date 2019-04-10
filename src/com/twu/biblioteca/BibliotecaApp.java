@@ -20,18 +20,18 @@ public class BibliotecaApp {
         LibraryMenu libraryMenu = new LibraryMenu(printer, console, handler);
         libraryMenu.printWelcomeMessage();
 
-        libraryMenu.ShowMenuAndHandleOptionSelection();
+        libraryMenu.showMenuAndHandleOptionSelection();
     }
 
     private static void initializeLibrary() {
         Library library = Library.getInstance();
 
-        List<LibraryItem> items = AddItemsToLibrary();
+        List<LibraryItem> items = addItemsToLibrary();
 
         library.setItems(items);
     }
 
-    private static ArrayList<LibraryItem> AddItemsToLibrary() {
+    private static ArrayList<LibraryItem> addItemsToLibrary() {
         Book hp = new Book(1, "Harry Potter", "J.K. Rolling", "2000");
         Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
         Movie memento = new Movie(1, "Memento", "2000", "Christopher Nolan", 10);

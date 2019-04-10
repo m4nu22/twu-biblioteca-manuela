@@ -5,7 +5,6 @@ import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
-import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.LibraryItem;
 
 import java.util.List;
@@ -62,7 +61,6 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
         boolean couldCheckout = library.checkoutItem(title,type);
         printCheckoutMessage(couldCheckout, type);
     }
-
 
     private void printCheckoutMessage(boolean couldCheckout, LibraryItemType type) {
         if (couldCheckout)
