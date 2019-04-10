@@ -28,13 +28,19 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
                 printer.printLn("See you!");
                 break;
             case 1:
-                printAvailableBooks();
+                printAvailableItems(LibraryItemType.book);
                 break;
             case 2:
-                checkoutBook();
+                checkoutItem(LibraryItemType.book);
                 break;
             case 3:
                 returnBook();
+                break;
+            case 4:
+                printAvailableItems(LibraryItemType.movie);
+                break;
+            case 5:
+                checkoutItem(LibraryItemType.movie);
                 break;
             default:
                 printer.printLn("Please select a valid option!");
@@ -42,25 +48,27 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
         }
     }
 
-    private void printAvailableBooks() {
-        List<LibraryItem> libraryBooks = library.getAvailableItemsPerType(LibraryItemType.book);
+    private void printAvailableItems(LibraryItemType type) {
+        List<LibraryItem> libraryBooks = library.getAvailableItemsPerType(type);
         if (!libraryBooks.isEmpty())
             printer.printList(libraryBooks);
     }
 
-    private void checkoutBook() {
-        printer.printLn("Please type the name of the book you want to checkout");
-        String bookTitle = console.readString();
+    private void checkoutItem(LibraryItemType type) {
+        String msg = String.format("Please type the name of the %s you want to checkout", type.toString());
+        printer.printLn(msg);
+        String title = console.readString();
 
-        boolean couldCheckout = library.checkoutBook(bookTitle);
-        printCheckoutMessage(couldCheckout);
+        boolean couldCheckout = library.checkoutItem(title,type);
+        printCheckoutMessage(couldCheckout, type);
     }
 
-    private void printCheckoutMessage(boolean couldCheckout) {
+
+    private void printCheckoutMessage(boolean couldCheckout, LibraryItemType type) {
         if (couldCheckout)
-            printer.printLn("Thank you! Enjoy the book!");
+            printer.printLn(String.format("Thank you! Enjoy the %s!",type.toString()));
         else
-            printer.printLn("Sorry, that book is not available");
+            printer.printLn(String.format("Sorry, that %s is not available",type.toString()));
     }
 
     private void returnBook() {

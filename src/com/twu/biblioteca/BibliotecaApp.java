@@ -35,7 +35,7 @@ public class BibliotecaApp {
         Book hp = new Book(1, "Harry Potter", "J.K. Rolling", "2000");
         Book narnia = new Book(2, "Narnia", "C. S. Lewis", "2003");
         Movie memento = new Movie(1, "Memento", "2000", "Christopher Nolan", 10);
-        Movie contratiempo = new Movie(2, "Contratiempo", "2017", "Oriol Paulo", 10);
+        Movie contratiempo = new Movie(2, "Contratiempo", "2017", "Oriol Paulo");
         Movie aStarIsBorn = new Movie(2, "A star is born", "2018", "Bradley Cooper", 8);
         return new ArrayList<>(Arrays.asList(hp, narnia, memento, contratiempo,aStarIsBorn));
     }

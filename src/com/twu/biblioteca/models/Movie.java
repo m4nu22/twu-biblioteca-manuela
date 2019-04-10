@@ -6,6 +6,12 @@ public class Movie extends LibraryItem {
     private String director;
     private float rating;
 
+    public Movie(int id, String name, String year, String director) {
+        super(id, name, year, LibraryItemType.movie);
+        this.director = director;
+        this.rating = 0;
+    }
+
     public Movie(int id, String name, String year, String director, float rating) {
         super(id, name, year, LibraryItemType.movie);
         this.director = director;
@@ -30,9 +36,11 @@ public class Movie extends LibraryItem {
 
     @Override
     public String toString() {
+
+        String rating = this.getRating() == 0 ? "unrated" : this.getRating()+"";
         return "Name: " + this.getName() +
                 " | Director: " + this.getDirector() +
                 " | Publication Year: " + this.getYear() +
-                " | Rating: " + this.getRating();
+                " | Rating: " + rating;
     }
 }

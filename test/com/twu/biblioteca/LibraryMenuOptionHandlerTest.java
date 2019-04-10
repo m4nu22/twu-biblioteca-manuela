@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 
 public class LibraryMenuOptionHandlerTest {
@@ -46,7 +47,7 @@ public class LibraryMenuOptionHandlerTest {
         libraryMenuOptionHandler.handleMenuOptionSelected(10);
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
+        Mockito.verify(printerMock, times(1)).printLn(eq("Please select a valid option!"));
 
     }
 
@@ -56,7 +57,7 @@ public class LibraryMenuOptionHandlerTest {
         libraryMenuOptionHandler.handleMenuOptionSelected(0);
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("See you!"));
+        Mockito.verify(printerMock, times(1)).printLn(eq("See you!"));
 
     }
 
@@ -64,13 +65,13 @@ public class LibraryMenuOptionHandlerTest {
     public void handleMenuOptionSelected_checkoutAvailableBook_printsSuccessMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Narnia");
-        Mockito.when(libraryMock.checkoutBook(anyString())).thenReturn(true);
+        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.book))).thenReturn(true);
 
         //act
         libraryMenuOptionHandler.handleMenuOptionSelected(2);
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Thank you! Enjoy the book!"));
+        Mockito.verify(printerMock, times(1)).printLn(eq("Thank you! Enjoy the book!"));
 
     }
 
@@ -78,13 +79,13 @@ public class LibraryMenuOptionHandlerTest {
     public void handleMenuOptionSelected_checkoutNotAvailableBook_printsErrorMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Divergent");
-        Mockito.when(libraryMock.checkoutBook(anyString())).thenReturn(false);
+        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.book))).thenReturn(false);
 
         //act
         libraryMenuOptionHandler.handleMenuOptionSelected(2);
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Sorry, that book is not available"));
+        Mockito.verify(printerMock, times(1)).printLn(eq("Sorry, that book is not available"));
     }
 
     @Test
@@ -97,7 +98,7 @@ public class LibraryMenuOptionHandlerTest {
         libraryMenuOptionHandler.handleMenuOptionSelected(3);
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Thank you for returning the book"));
+        Mockito.verify(printerMock, times(1)).printLn(eq("Thank you for returning the book"));
     }
 
     @Test
@@ -110,7 +111,7 @@ public class LibraryMenuOptionHandlerTest {
         libraryMenuOptionHandler.handleMenuOptionSelected(3);
 
         //assert
-        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("That is not a valid book to return"));
+        Mockito.verify(printerMock, times(1)).printLn(eq("That is not a valid book to return"));
     }
 
     private ArrayList<LibraryItem> AddBooksToLibrary() {

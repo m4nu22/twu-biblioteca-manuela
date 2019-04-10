@@ -4,7 +4,6 @@ import com.twu.biblioteca.enums.LibraryItemType;
 import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.LibraryItem;
-import com.twu.biblioteca.models.Movie;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,14 +27,16 @@ public class Library implements ILibrary {
         return libraryItems.stream().filter(b -> !b.isCheckedOut() && type.equals(b.getType())).collect(Collectors.toList());
     }
 
-    public boolean checkoutBook(String title) {
+    public boolean checkoutItem(String title, LibraryItemType type){
         boolean canCheckout = false;
 
-        Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.book.equals(b.getType()) && title.equalsIgnoreCase(b.getName()) && !b.isCheckedOut()).findFirst().orElse(null);
+        LibraryItem item = libraryItems.stream().filter(b -> b.getType().equals(type) &&
+                                                             title.equalsIgnoreCase(b.getName()) &&
+                                                             !b.isCheckedOut()).findFirst().orElse(null);
 
-        if (book != null) {
+        if (item != null) {
             canCheckout = true;
-            book.setCheckedOut(true);
+            item.setCheckedOut(true);
         }
 
         return canCheckout;
@@ -44,7 +45,9 @@ public class Library implements ILibrary {
     public boolean returnBook(String title) {
         boolean canReturn = false;
 
-        Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.book.equals(b.getType()) && title.equalsIgnoreCase(b.getName()) && b.isCheckedOut()).findFirst().orElse(null);
+        Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.book.equals(b.getType()) &&
+                                                             title.equalsIgnoreCase(b.getName()) &&
+                                                             b.isCheckedOut()).findFirst().orElse(null);
 
         if (book != null) {
             canReturn = true;

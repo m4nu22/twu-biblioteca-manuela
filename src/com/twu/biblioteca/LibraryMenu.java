@@ -70,6 +70,12 @@ public class LibraryMenu {
             case returnBook:
                 name = "3 - Return Book";
                 break;
+            case listMovies:
+                name = "4 - List of movies";
+                break;
+            case checkoutMovie:
+                name = "5 - Checkout movie";
+                break;
         }
 
         return name;

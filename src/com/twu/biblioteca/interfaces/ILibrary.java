@@ -15,7 +15,7 @@ public interface ILibrary {
 
     List<LibraryItem> getAvailableItemsPerType(LibraryItemType type);
 
-    boolean checkoutBook(String title);
+    boolean checkoutItem(String title, LibraryItemType type);
 
     boolean returnBook(String title);
 
