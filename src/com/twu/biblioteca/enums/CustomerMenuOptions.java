@@ -1,6 +1,6 @@
 package com.twu.biblioteca.enums;
 
-public enum MenuOptions {
+public enum CustomerMenuOptions {
     QUIT("0 - Quit"),
     LIST_BOOKS("1 - List of books"),
     CHECKOUT_BOOK("2 - Checkout Book"),
@@ -10,7 +10,7 @@ public enum MenuOptions {
 
     private String description;
 
-    MenuOptions(String descriptipion) {
+    CustomerMenuOptions(String descriptipion) {
         this.description = descriptipion;
     }
 

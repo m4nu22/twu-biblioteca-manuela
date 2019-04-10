@@ -1,8 +1,12 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.enums.UserRole;
+import com.twu.biblioteca.interfaces.ILibrary;
+import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.LibraryItem;
 import com.twu.biblioteca.models.Movie;
+import com.twu.biblioteca.models.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,16 +15,26 @@ import java.util.List;
 public class BibliotecaApp {
 
     public static void main(String[] args) {
-        initializeLibrary();
 
         Printer printer = new Printer();
         Console console = new Console();
-        LibraryMenuOptionHandler handler = new LibraryMenuOptionHandler(printer, console, Library.getInstance());
 
-        LibraryMenu libraryMenu = new LibraryMenu(printer, console, handler);
-        libraryMenu.printWelcomeMessage();
+        initializeLibrary();
 
-        libraryMenu.showMenuAndHandleOptionSelection();
+        while(true) {
+            User user = libraryLogin(printer, console);
+
+            ShowLibraryWelcomeMsgAndMenu(printer, console, user);
+        }
+    }
+
+    private static User libraryLogin(Printer printer, Console console) {
+        BibliotecaLoginController loginController = new BibliotecaLoginController(printer,console);
+
+        User user;
+        while((user = loginController.login()) == null);
+
+        return user;
     }
 
     private static void initializeLibrary() {
@@ -38,5 +52,18 @@ public class BibliotecaApp {
         Movie contratiempo = new Movie(2, "Contratiempo", "2017", "Oriol Paulo");
         Movie aStarIsBorn = new Movie(2, "A star is born", "2018", "Bradley Cooper", 8);
         return new ArrayList<>(Arrays.asList(hp, narnia, memento, contratiempo,aStarIsBorn));
+    }
+
+    private static void ShowLibraryWelcomeMsgAndMenu(Printer printer, Console console, User user) {
+        ILibraryMenuOptionHandler handler;
+        if(UserRole.CUSTOMER.equals(user.getRole()))
+            handler = new CustomerMenuOptionHandler(printer, console, Library.getInstance(), user);
+        else
+            handler = new LibrarianMenuOptionHandler(printer, Library.getInstance());
+
+        LibraryMenu libraryMenu = new LibraryMenu(printer, console, handler);
+        libraryMenu.printWelcomeMessage();
+
+        libraryMenu.showMenuAndHandleOptionSelection(user.getRole());
     }
 }

@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class AuthenticationControllerTest {
@@ -23,29 +23,30 @@ public class AuthenticationControllerTest {
     @Test
     public void login_validUser_returnsTrue() {
         //act
-        boolean isLogged = authController.authenticate("123-4567","myPassword");
+        User user = authController.login("123-4567","myPassword");
 
         //assert
-        assertThat(isLogged,is(true));
+        assertThat(user,is(notNullValue()));
     }
 
     @Test
     public void login_invalidLibraryNumber_returnsFalse() {
         //act
-        boolean isLogged = authController.authenticate("777-9599","pass");
+        User user = authController.login("777-9599","pass");
 
         //assert
-        assertThat(isLogged,is(false));
+        assertThat(user,is(nullValue()));
     }
 
     @Test
     public void login_invalidPassword_returnsFalse() {
         //act
-        boolean isLogged = authController.authenticate("456-7891","def");
+        User user = authController.login("456-7891","def");
 
         //assert
-        assertThat(isLogged,is(false));
+        assertThat(user,is(nullValue()));
     }
+
 
     public List<User> getDefaultUserList(){
         User u1 = new User("123-4567","myPassword","Manu","manu@gmail.com","977383474", UserRole.CUSTOMER);

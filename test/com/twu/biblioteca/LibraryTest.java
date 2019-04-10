@@ -1,9 +1,11 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.enums.LibraryItemType;
+import com.twu.biblioteca.enums.UserRole;
 import com.twu.biblioteca.models.LibraryItem;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.Movie;
+import com.twu.biblioteca.models.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,9 +21,11 @@ import static org.junit.Assert.*;
 public class LibraryTest {
 
     private Library library;
+    private User user;
 
     @Before
     public void initialize() {
+        user = new User("123-4567","myPassword","Manu","manu@gmail.com","977383474", UserRole.CUSTOMER);
         library = Library.getInstance();
     }
 
@@ -77,7 +81,7 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("",LibraryItemType.BOOK);
+        boolean canCheckedOut = library.checkoutItem("",LibraryItemType.BOOK, user);
 
         //assert
         assertThat(canCheckedOut, is(false));
@@ -90,7 +94,7 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem(null,LibraryItemType.BOOK);
+        boolean canCheckedOut = library.checkoutItem(null,LibraryItemType.BOOK, user);
 
         //assert
         assertThat(canCheckedOut, is(false));
@@ -104,7 +108,7 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.BOOK);
+        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.BOOK, user);
 
         //assert
         assertThat(canCheckedOut, is(false));
@@ -117,7 +121,7 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.BOOK);
+        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.BOOK, user);
 
         //assert
         assertThat(canCheckedOut, is(true));
@@ -130,7 +134,7 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Divergent",LibraryItemType.BOOK);
+        boolean canCheckedOut = library.checkoutItem("Divergent",LibraryItemType.BOOK, user);
 
         //assert
         assertThat(canCheckedOut, is(false));
@@ -143,7 +147,7 @@ public class LibraryTest {
         library.setItems(books);
 
         //act
-        boolean canReturnBook = library.returnBook("");
+        boolean canReturnBook = library.returnBook("", user);
 
         //assert
         assertThat(canReturnBook, is(false));
@@ -156,7 +160,7 @@ public class LibraryTest {
         library.setItems(books);
 
         //act
-        boolean canReturnBook = library.returnBook(null);
+        boolean canReturnBook = library.returnBook(null, user);
 
         //assert
         assertThat(canReturnBook, is(false));
@@ -170,7 +174,7 @@ public class LibraryTest {
         library.setItems(books);
 
         //act
-        boolean canReturnBook = library.returnBook("Harry Potter");
+        boolean canReturnBook = library.returnBook("Harry Potter", user);
 
         //assert
         assertThat(canReturnBook, is(true));
@@ -183,7 +187,7 @@ public class LibraryTest {
         library.setItems(books);
 
         //act
-        boolean canReturnBook = library.returnBook("Harry Potter");
+        boolean canReturnBook = library.returnBook("Harry Potter", user);
 
         //assert
         assertThat(canReturnBook, is(false));
@@ -196,7 +200,7 @@ public class LibraryTest {
         library.setItems(books);
 
         //act
-        boolean canReturnBook = library.returnBook("Harry Pottet");
+        boolean canReturnBook = library.returnBook("Harry Pottet", user);
 
         //assert
         assertThat(canReturnBook, is(false));
@@ -238,7 +242,7 @@ public class LibraryTest {
         library.setItems(expectedMovieList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Memento",LibraryItemType.MOVIE);
+        boolean canCheckedOut = library.checkoutItem("Memento",LibraryItemType.MOVIE, user);
 
         //assert
         assertThat(canCheckedOut, is(false));
@@ -251,7 +255,7 @@ public class LibraryTest {
         library.setItems(expectedMovieList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Contratiempo",LibraryItemType.MOVIE);
+        boolean canCheckedOut = library.checkoutItem("Contratiempo",LibraryItemType.MOVIE, user);
 
         //assert
         assertThat(canCheckedOut, is(true));
@@ -264,7 +268,7 @@ public class LibraryTest {
         library.setItems(expectedMovieList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("narnia", LibraryItemType.MOVIE);
+        boolean canCheckedOut = library.checkoutItem("narnia", LibraryItemType.MOVIE, user);
 
         //assert
         assertThat(canCheckedOut, is(false));

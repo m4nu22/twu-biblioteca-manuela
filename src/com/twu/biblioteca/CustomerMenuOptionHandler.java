@@ -6,19 +6,23 @@ import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
 import com.twu.biblioteca.models.LibraryItem;
+import com.twu.biblioteca.models.User;
 
 import java.util.List;
 
-public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
+public class CustomerMenuOptionHandler implements ILibraryMenuOptionHandler {
 
     private IPrinter printer;
     private IConsole console;
     private ILibrary library;
+    private User user;
 
-    public LibraryMenuOptionHandler(IPrinter printer, IConsole console, ILibrary library) {
+
+    public CustomerMenuOptionHandler(IPrinter printer, IConsole console, ILibrary library, User user) {
         this.printer = printer;
         this.console = console;
         this.library = library;
+        this.user = user;
     }
 
     public void handleMenuOptionSelected(int option) {
@@ -30,16 +34,16 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
                 printAvailableItems(LibraryItemType.BOOK);
                 break;
             case 2:
-                checkoutItem(LibraryItemType.BOOK);
+                checkoutItem(LibraryItemType.BOOK, user);
                 break;
             case 3:
-                returnBook();
+                returnBook(user);
                 break;
             case 4:
                 printAvailableItems(LibraryItemType.MOVIE);
                 break;
             case 5:
-                checkoutItem(LibraryItemType.MOVIE);
+                checkoutItem(LibraryItemType.MOVIE, user);
                 break;
             default:
                 printer.printLn("Please select a valid option!");
@@ -53,21 +57,21 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
             printer.printList(libraryBooks);
     }
 
-    private void checkoutItem(LibraryItemType type) {
+    private void checkoutItem(LibraryItemType type, User user) {
         String msg = String.format("Please type the name of the %s you want to checkout", type.toString().toLowerCase());
         String title = printMsgAndReturnConsoleResponse(msg);
 
-        boolean couldCheckout = library.checkoutItem(title,type);
+        boolean couldCheckout = library.checkoutItem(title,type, user);
 
         printMsgByCondition(couldCheckout,
                 String.format("Thank you! Enjoy the %s!",type.toString().toLowerCase()),
                 String.format("Sorry, that %s is not available",type.toString().toLowerCase()));
     }
 
-    private void returnBook() {
+    private void returnBook(User user) {
         String bookTitle = printMsgAndReturnConsoleResponse("Please type the name of the book you want to return");
 
-        boolean couldReturn = library.returnBook(bookTitle);
+        boolean couldReturn = library.returnBook(bookTitle,user);
 
         printMsgByCondition(couldReturn,"Thank you for returning the book","That is not a valid book to return");
     }

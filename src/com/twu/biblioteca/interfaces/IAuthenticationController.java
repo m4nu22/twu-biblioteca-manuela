@@ -8,5 +8,7 @@ public interface IAuthenticationController {
 
     void setUsers(List<User> users);
 
-    boolean authenticate(String libraryNumber, String password);
+    User login(String libraryId, String password);
+
+    boolean logout();
 }

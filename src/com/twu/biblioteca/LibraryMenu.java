@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.enums.MenuOptions;
+import com.twu.biblioteca.enums.CustomerMenuOptions;
+import com.twu.biblioteca.enums.LibrarianMenuOptions;
+import com.twu.biblioteca.enums.UserRole;
 import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
@@ -15,7 +17,8 @@ public class LibraryMenu {
     private IPrinter printer;
     private IConsole console;
     private ILibraryMenuOptionHandler handler;
-    private List<MenuOptions> menuOptions = Arrays.asList(MenuOptions.values());
+    private List<CustomerMenuOptions> customerMenuOptions = Arrays.asList(CustomerMenuOptions.values());
+    private List<LibrarianMenuOptions> librarianMenuOptions = Arrays.asList(LibrarianMenuOptions.values());
 
     public LibraryMenu(IPrinter printer, IConsole console, ILibraryMenuOptionHandler handler) {
         this.printer = printer;
@@ -27,11 +30,11 @@ public class LibraryMenu {
         printer.printLn("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
 
-    public void showMenuAndHandleOptionSelection() {
+    public void showMenuAndHandleOptionSelection(UserRole role) {
         boolean shouldQuit = false;
 
         while (!shouldQuit) {
-            printMenuOfOptions();
+            printMenuOfOptions(role);
             try {
                 int option = console.readInt();
                 handler.handleMenuOptionSelected(option);
@@ -45,10 +48,17 @@ public class LibraryMenu {
         }
     }
 
-    private void printMenuOfOptions() {
+    private void printMenuOfOptions(UserRole userRole) {
         printer.printLn("\nLibrary Menu Options:");
-        for (MenuOptions opt : menuOptions) {
+
+        if(UserRole.CUSTOMER.equals(userRole)) {
+            for (CustomerMenuOptions opt : customerMenuOptions) {
                 printer.printLn(opt.getDescription());
+            }
+        }else{
+            for (LibrarianMenuOptions opt : librarianMenuOptions) {
+                printer.printLn(opt.getDescription());
+            }
         }
     }
 }

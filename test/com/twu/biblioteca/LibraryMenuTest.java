@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.enums.UserRole;
 import com.twu.biblioteca.interfaces.IConsole;
 import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
@@ -42,7 +43,7 @@ public class LibraryMenuTest {
         Mockito.when(consoleMock.readInt()).thenThrow(new InputMismatchException()).thenReturn(0);
 
         //act
-            libraryMenu.showMenuAndHandleOptionSelection();
+            libraryMenu.showMenuAndHandleOptionSelection(UserRole.CUSTOMER);
 
         //assert
             Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
@@ -56,7 +57,7 @@ public class LibraryMenuTest {
         Mockito.when(consoleMock.readInt()).thenReturn(1).thenReturn(0);
 
         //act
-        libraryMenu.showMenuAndHandleOptionSelection();
+        libraryMenu.showMenuAndHandleOptionSelection(UserRole.CUSTOMER);
 
         //assert
         Mockito.verify(printerMock, never()).printLn(ArgumentMatchers.eq("Please select a valid option!"));
