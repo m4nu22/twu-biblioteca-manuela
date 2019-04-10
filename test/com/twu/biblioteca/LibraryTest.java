@@ -32,7 +32,7 @@ public class LibraryTest {
         library.setItems(new ArrayList<>());
 
         //act
-        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.book);
+        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.BOOK);
 
         //assert
         assertThat(books.isEmpty(), is(true));
@@ -43,10 +43,10 @@ public class LibraryTest {
         //arrange
         List<LibraryItem> libraryItems = getDefaultMixedList();
         library.setItems(libraryItems);
-        List<LibraryItem> expectedBooks = libraryItems.stream().filter(i -> i.getType().equals(LibraryItemType.book)).collect(Collectors.toList());
+        List<LibraryItem> expectedBooks = libraryItems.stream().filter(i -> i.getType().equals(LibraryItemType.BOOK)).collect(Collectors.toList());
 
         //act
-        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.book);
+        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.BOOK);
 
         //assert
         assertThat(expectedBooks, is(books));
@@ -58,16 +58,42 @@ public class LibraryTest {
         List<LibraryItem> itemList = getDefaultMixedList();
         itemList.get(1).setCheckedOut(true);
         library.setItems(itemList);
-        List<LibraryItem> expectedItemList = itemList.stream().filter(b -> b.getType().equals(LibraryItemType.book)).collect(Collectors.toList());
+        List<LibraryItem> expectedItemList = itemList.stream().filter(b -> b.getType().equals(LibraryItemType.BOOK)).collect(Collectors.toList());
 
         //act
-        List<LibraryItem> availableBooks = library.getAvailableItemsPerType(LibraryItemType.book);
+        List<LibraryItem> availableBooks = library.getAvailableItemsPerType(LibraryItemType.BOOK);
 
         //assert
         assertThat(availableBooks.size() == 1, is(true));
         assertThat(availableBooks.get(0).isCheckedOut(), is(false));
         expectedItemList.removeAll(availableBooks);
         assertThat(expectedItemList.stream().allMatch(b -> b.isCheckedOut()), is(true));
+    }
+
+    @Test
+    public void checkoutBook_emptyStringTitle_returnsFalse() {
+        //arrange
+        List<LibraryItem> expectedBookList = getDefaultMixedList();
+        library.setItems(expectedBookList);
+
+        //act
+        boolean canCheckedOut = library.checkoutItem("",LibraryItemType.BOOK);
+
+        //assert
+        assertThat(canCheckedOut, is(false));
+    }
+
+    @Test
+    public void checkoutBook_nullTitle_returnsFalse() {
+        //arrange
+        List<LibraryItem> expectedBookList = getDefaultMixedList();
+        library.setItems(expectedBookList);
+
+        //act
+        boolean canCheckedOut = library.checkoutItem(null,LibraryItemType.BOOK);
+
+        //assert
+        assertThat(canCheckedOut, is(false));
     }
 
     @Test
@@ -78,7 +104,7 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.book);
+        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.BOOK);
 
         //assert
         assertThat(canCheckedOut, is(false));
@@ -91,7 +117,7 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.book);
+        boolean canCheckedOut = library.checkoutItem("Narnia",LibraryItemType.BOOK);
 
         //assert
         assertThat(canCheckedOut, is(true));
@@ -104,10 +130,36 @@ public class LibraryTest {
         library.setItems(expectedBookList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Divergent",LibraryItemType.book);
+        boolean canCheckedOut = library.checkoutItem("Divergent",LibraryItemType.BOOK);
 
         //assert
         assertThat(canCheckedOut, is(false));
+    }
+
+    @Test
+    public void returnBook_emptyStringTitle_returnsFalse() {
+        //arrange
+        List<LibraryItem> books = getDefaultMixedList();
+        library.setItems(books);
+
+        //act
+        boolean canReturnBook = library.returnBook("");
+
+        //assert
+        assertThat(canReturnBook, is(false));
+    }
+
+    @Test
+    public void returnBook_nullTitle_returnsFalse() {
+        //arrange
+        List<LibraryItem> books = getDefaultMixedList();
+        library.setItems(books);
+
+        //act
+        boolean canReturnBook = library.returnBook(null);
+
+        //assert
+        assertThat(canReturnBook, is(false));
     }
 
     @Test
@@ -158,7 +210,7 @@ public class LibraryTest {
         library.setItems(new ArrayList<>());
 
         //act
-        List<LibraryItem> movies = library.getAvailableItemsPerType(LibraryItemType.movie);
+        List<LibraryItem> movies = library.getAvailableItemsPerType(LibraryItemType.MOVIE);
 
         //assert
         assertThat(movies.isEmpty(), is(true));
@@ -168,11 +220,11 @@ public class LibraryTest {
     public void getAvailableMovies_returnsMovieList(){
         //arrange
         List<LibraryItem> libraryItemsList = getDefaultMixedList();
-        List<LibraryItem> expectedMovies = libraryItemsList.stream().filter(i -> i.getType().equals(LibraryItemType.movie)).collect(Collectors.toList());
+        List<LibraryItem> expectedMovies = libraryItemsList.stream().filter(i -> i.getType().equals(LibraryItemType.MOVIE)).collect(Collectors.toList());
         library.setItems(libraryItemsList);
 
         //act
-        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.movie);
+        List<LibraryItem> books = library.getAvailableItemsPerType(LibraryItemType.MOVIE);
 
         //assert
         assertThat(expectedMovies, is(books));
@@ -186,7 +238,7 @@ public class LibraryTest {
         library.setItems(expectedMovieList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Memento",LibraryItemType.movie);
+        boolean canCheckedOut = library.checkoutItem("Memento",LibraryItemType.MOVIE);
 
         //assert
         assertThat(canCheckedOut, is(false));
@@ -199,7 +251,7 @@ public class LibraryTest {
         library.setItems(expectedMovieList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("Contratiempo",LibraryItemType.movie);
+        boolean canCheckedOut = library.checkoutItem("Contratiempo",LibraryItemType.MOVIE);
 
         //assert
         assertThat(canCheckedOut, is(true));
@@ -212,7 +264,7 @@ public class LibraryTest {
         library.setItems(expectedMovieList);
 
         //act
-        boolean canCheckedOut = library.checkoutItem("narnia", LibraryItemType.movie);
+        boolean canCheckedOut = library.checkoutItem("narnia", LibraryItemType.MOVIE);
 
         //assert
         assertThat(canCheckedOut, is(false));

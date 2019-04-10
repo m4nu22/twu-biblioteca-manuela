@@ -48,10 +48,10 @@ public class AuthenticationControllerTest {
     }
 
     public List<User> getDefaultUserList(){
-        User u1 = new User("123-4567","myPassword","Manu","manu@gmail.com","977383474", UserRole.customer);
-        User u2 = new User("234-5678","pass","Amanda","amanda@gmail.com","9836485780", UserRole.customer);
-        User u3 = new User("345-6789","123","Irene","irene@gmail.com","905836252", UserRole.librarian);
-        User u4 = new User("456-7891","abc","Pedro","pedro@gmail.com","976675843", UserRole.customer);
+        User u1 = new User("123-4567","myPassword","Manu","manu@gmail.com","977383474", UserRole.CUSTOMER);
+        User u2 = new User("234-5678","pass","Amanda","amanda@gmail.com","9836485780", UserRole.CUSTOMER);
+        User u3 = new User("345-6789","123","Irene","irene@gmail.com","905836252", UserRole.LIBRARIAN);
+        User u4 = new User("456-7891","abc","Pedro","pedro@gmail.com","976675843", UserRole.CUSTOMER);
         return Arrays.asList(u1,u2,u3,u4);
     }
 }

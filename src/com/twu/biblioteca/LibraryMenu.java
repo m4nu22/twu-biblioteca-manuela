@@ -48,37 +48,7 @@ public class LibraryMenu {
     private void printMenuOfOptions() {
         printer.printLn("\nLibrary Menu Options:");
         for (MenuOptions opt : menuOptions) {
-            String optionName = getMenuOptionNameFromEnum(opt);
-            if (!optionName.equals(""))
-                printer.printLn(optionName);
+                printer.printLn(opt.getDescription());
         }
-    }
-
-    private String getMenuOptionNameFromEnum(MenuOptions opt) {
-        String name = "";
-
-        switch (opt) {
-            case quit:
-                name = "0 - Quit";
-                break;
-            case listBooks:
-                name = "1 - List of books";
-                break;
-            case checkoutBook:
-                name = "2 - Checkout Book";
-                break;
-            case returnBook:
-                name = "3 - Return Book";
-                break;
-            case listMovies:
-                name = "4 - List of movies";
-                break;
-            case checkoutMovie:
-                name = "5 - Checkout movie";
-                break;
-        }
-
-        return name;
-
     }
 }

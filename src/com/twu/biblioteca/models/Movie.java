@@ -7,13 +7,13 @@ public class Movie extends LibraryItem {
     private float rating;
 
     public Movie(int id, String name, String year, String director) {
-        super(id, name, year, LibraryItemType.movie);
+        super(id, name, year, LibraryItemType.MOVIE);
         this.director = director;
         this.rating = 0;
     }
 
     public Movie(int id, String name, String year, String director, float rating) {
-        super(id, name, year, LibraryItemType.movie);
+        super(id, name, year, LibraryItemType.MOVIE);
         this.director = director;
         this.rating = rating;
     }

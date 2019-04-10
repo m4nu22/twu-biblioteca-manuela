@@ -27,19 +27,19 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
                 printer.printLn("See you!");
                 break;
             case 1:
-                printAvailableItems(LibraryItemType.book);
+                printAvailableItems(LibraryItemType.BOOK);
                 break;
             case 2:
-                checkoutItem(LibraryItemType.book);
+                checkoutItem(LibraryItemType.BOOK);
                 break;
             case 3:
                 returnBook();
                 break;
             case 4:
-                printAvailableItems(LibraryItemType.movie);
+                printAvailableItems(LibraryItemType.MOVIE);
                 break;
             case 5:
-                checkoutItem(LibraryItemType.movie);
+                checkoutItem(LibraryItemType.MOVIE);
                 break;
             default:
                 printer.printLn("Please select a valid option!");
@@ -54,33 +54,33 @@ public class LibraryMenuOptionHandler implements ILibraryMenuOptionHandler {
     }
 
     private void checkoutItem(LibraryItemType type) {
-        String msg = String.format("Please type the name of the %s you want to checkout", type.toString());
-        printer.printLn(msg);
-        String title = console.readString();
+        String msg = String.format("Please type the name of the %s you want to checkout", type.toString().toLowerCase());
+        String title = printMsgAndReturnConsoleResponse(msg);
 
         boolean couldCheckout = library.checkoutItem(title,type);
-        printCheckoutMessage(couldCheckout, type);
-    }
 
-    private void printCheckoutMessage(boolean couldCheckout, LibraryItemType type) {
-        if (couldCheckout)
-            printer.printLn(String.format("Thank you! Enjoy the %s!",type.toString()));
-        else
-            printer.printLn(String.format("Sorry, that %s is not available",type.toString()));
+        printMsgByCondition(couldCheckout,
+                String.format("Thank you! Enjoy the %s!",type.toString().toLowerCase()),
+                String.format("Sorry, that %s is not available",type.toString().toLowerCase()));
     }
 
     private void returnBook() {
-        printer.printLn("Please type the name of the book you want to return");
-        String bookTitle = console.readString();
+        String bookTitle = printMsgAndReturnConsoleResponse("Please type the name of the book you want to return");
 
         boolean couldReturn = library.returnBook(bookTitle);
-        printReturnBookMessage(couldReturn);
+
+        printMsgByCondition(couldReturn,"Thank you for returning the book","That is not a valid book to return");
     }
 
-    private void printReturnBookMessage(boolean couldReturn) {
-        if (couldReturn)
-            printer.printLn("Thank you for returning the book");
+    private String printMsgAndReturnConsoleResponse(String msg){
+        printer.printLn(msg);
+        return console.readString();
+    }
+
+    private void printMsgByCondition(boolean condition, String successMsg, String errorMsg ){
+        if (condition)
+            printer.printLn(successMsg);
         else
-            printer.printLn("That is not a valid book to return");
+            printer.printLn(errorMsg);
     }
 }

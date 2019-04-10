@@ -27,7 +27,7 @@ public class LibraryMenuOptionHandlerTest {
     @Before
     public void initialize() {
         libraryMenuOptionHandler = new LibraryMenuOptionHandler(printerMock, consoleMock, libraryMock);
-        Mockito.when(libraryMock.getAvailableItemsPerType(LibraryItemType.book)).thenReturn(addBooksToLibrary());
+        Mockito.when(libraryMock.getAvailableItemsPerType(LibraryItemType.BOOK)).thenReturn(addBooksToLibrary());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class LibraryMenuOptionHandlerTest {
     public void handleMenuOptionSelected_checkoutAvailableBook_printsSuccessMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Narnia");
-        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.book))).thenReturn(true);
+        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.BOOK))).thenReturn(true);
 
         //act
         libraryMenuOptionHandler.handleMenuOptionSelected(2);
@@ -78,7 +78,7 @@ public class LibraryMenuOptionHandlerTest {
     public void handleMenuOptionSelected_checkoutNotAvailableBook_printsErrorMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Divergent");
-        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.book))).thenReturn(false);
+        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.BOOK))).thenReturn(false);
 
         //act
         libraryMenuOptionHandler.handleMenuOptionSelected(2);

@@ -31,7 +31,7 @@ public class Library implements ILibrary {
         boolean canCheckout = false;
 
         LibraryItem item = libraryItems.stream().filter(b -> b.getType().equals(type) &&
-                                                             title.equalsIgnoreCase(b.getName()) &&
+                                                             b.getName().equalsIgnoreCase(title) &&
                                                              !b.isCheckedOut()).findFirst().orElse(null);
 
         if (item != null) {
@@ -45,8 +45,8 @@ public class Library implements ILibrary {
     public boolean returnBook(String title) {
         boolean canReturn = false;
 
-        Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.book.equals(b.getType()) &&
-                                                             title.equalsIgnoreCase(b.getName()) &&
+        Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.BOOK.equals(b.getType()) &&
+                                                             (b.getName()).equalsIgnoreCase(title) &&
                                                              b.isCheckedOut()).findFirst().orElse(null);
 
         if (book != null) {
