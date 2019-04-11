@@ -37,7 +37,7 @@ public class Movie extends LibraryItem {
     @Override
     public String toString() {
 
-        String rating = this.getRating() == 0 ? "unrated" : this.getRating()+"";
+        String rating = this.getRating() == 0 ? "unrated" : this.getRating() + "";
         return "Name: " + this.getName() +
                 " | Director: " + this.getDirector() +
                 " | Publication Year: " + this.getYear() +

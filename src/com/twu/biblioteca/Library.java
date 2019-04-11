@@ -4,7 +4,6 @@ import com.twu.biblioteca.enums.LibraryItemType;
 import com.twu.biblioteca.interfaces.ILibrary;
 import com.twu.biblioteca.models.Book;
 import com.twu.biblioteca.models.LibraryItem;
-import com.twu.biblioteca.models.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +32,7 @@ public class Library implements ILibrary {
         return libraryItems.stream().filter(b -> !b.isCheckedOut() && type.equals(b.getType())).collect(Collectors.toList());
     }
 
-    public boolean checkoutItem(String title, LibraryItemType type, User user){
+    public boolean checkoutItem(String title, LibraryItemType type, String userLibraryNumber){
         boolean canCheckout = false;
 
         LibraryItem item = libraryItems.stream().filter(b -> b.getType().equals(type) &&
@@ -43,21 +42,21 @@ public class Library implements ILibrary {
         if (item != null) {
             canCheckout = true;
             item.setCheckedOut(true);
-            customerItemMap.put(item.getName(),user.getLibraryNumber());
+            customerItemMap.put(item.getName(),userLibraryNumber);
 
         }
 
         return canCheckout;
     }
 
-    public boolean returnBook(String title, User user) {
+    public boolean returnBook(String title, String userLibraryNumber) {
         boolean canReturn = false;
 
         Book book = (Book) libraryItems.stream().filter(b -> LibraryItemType.BOOK.equals(b.getType()) &&
                                                              (b.getName()).equalsIgnoreCase(title) &&
                                                              b.isCheckedOut()).findFirst().orElse(null);
 
-        if (book != null) {
+        if (book != null && userLibraryNumber!= null && (userLibraryNumber).equals(customerItemMap.get(book.getName()))) {
             canReturn = true;
             book.setCheckedOut(false);
             customerItemMap.remove(book.getName());
@@ -68,6 +67,10 @@ public class Library implements ILibrary {
 
     public Map<String, String> getCustomerItemMap() {
         return customerItemMap;
+    }
+
+    public void setCustomerItemMap(Map<String, String> customerItemMap) {
+        this.customerItemMap = customerItemMap;
     }
 
     public void setItems(List<LibraryItem> items) {

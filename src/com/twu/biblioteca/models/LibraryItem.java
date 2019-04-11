@@ -46,7 +46,11 @@ public abstract class LibraryItem {
         isCheckedOut = checkedOut;
     }
 
-    public LibraryItemType getType() { return type; }
+    public LibraryItemType getType() {
+        return type;
+    }
 
-    public void setType(LibraryItemType type) { this.type = type; }
+    public void setType(LibraryItemType type) {
+        this.type = type;
+    }
 }

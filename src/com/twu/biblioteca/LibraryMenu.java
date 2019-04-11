@@ -4,7 +4,7 @@ import com.twu.biblioteca.enums.CustomerMenuOptions;
 import com.twu.biblioteca.enums.LibrarianMenuOptions;
 import com.twu.biblioteca.enums.UserRole;
 import com.twu.biblioteca.interfaces.IConsole;
-import com.twu.biblioteca.interfaces.ILibraryMenuOptionHandler;
+import com.twu.biblioteca.interfaces.IMenuOptionHandler;
 import com.twu.biblioteca.interfaces.IPrinter;
 
 import java.util.Arrays;
@@ -16,11 +16,11 @@ public class LibraryMenu {
 
     private IPrinter printer;
     private IConsole console;
-    private ILibraryMenuOptionHandler handler;
+    private IMenuOptionHandler handler;
     private List<CustomerMenuOptions> customerMenuOptions = Arrays.asList(CustomerMenuOptions.values());
     private List<LibrarianMenuOptions> librarianMenuOptions = Arrays.asList(LibrarianMenuOptions.values());
 
-    public LibraryMenu(IPrinter printer, IConsole console, ILibraryMenuOptionHandler handler) {
+    public LibraryMenu(IPrinter printer, IConsole console, IMenuOptionHandler handler) {
         this.printer = printer;
         this.console = console;
         this.handler = handler;
@@ -51,14 +51,18 @@ public class LibraryMenu {
     private void printMenuOfOptions(UserRole userRole) {
         printer.printLn("\nLibrary Menu Options:");
 
+        String options = "";
+
         if(UserRole.CUSTOMER.equals(userRole)) {
             for (CustomerMenuOptions opt : customerMenuOptions) {
-                printer.printLn(opt.getDescription());
+                options += (opt.getDescription()) + "\n";
             }
         }else{
             for (LibrarianMenuOptions opt : librarianMenuOptions) {
-                printer.printLn(opt.getDescription());
+                options += (opt.getDescription()) + "\n";
             }
         }
+
+        printer.printLn(options);
     }
 }

@@ -21,7 +21,7 @@ public class Printer implements IPrinter {
         for (Map.Entry<String, String> entry : customerItemMap.entrySet()) {
             String key = entry.getKey();
             Object val = entry.getValue();
-            printLn(key + " - " + val);
+            printLn(key + " | " + val);
         }
     }
 }

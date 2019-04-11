@@ -1,6 +1,6 @@
 package com.twu.biblioteca.interfaces;
 
-public interface ILibraryMenuOptionHandler {
+public interface IMenuOptionHandler {
 
     void handleMenuOptionSelected(int option);
 

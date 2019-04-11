@@ -69,10 +69,9 @@ public class User {
 
     @Override
     public String toString() {
-        return  "Name: " + getName() +
+        return "Name: " + getName() +
                 " | Email: " + getEmail() +
                 " | Phone='" + getPhone();
-
     }
 
     @Override
@@ -83,7 +82,7 @@ public class User {
         if (!(obj instanceof User)) {
             return false;
         }
-        User u = (User)obj;
-        return u.libraryNumber == libraryNumber;
+        User u = (User) obj;
+        return u.libraryNumber.equals(libraryNumber);
     }
 }

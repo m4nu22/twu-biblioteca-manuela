@@ -29,7 +29,7 @@ public class CustomerMenuOptionHandlerTest {
 
     @Before
     public void initialize() {
-        user = new User("123-4567","myPassword","Manu","manu@gmail.com","977383474", UserRole.CUSTOMER);
+        user = new User ("123-4567","myPassword","Manu","manu@gmail.com","977383474", UserRole.CUSTOMER);
         customerMenuOptionHandler = new CustomerMenuOptionHandler(printerMock, consoleMock, libraryMock, user);
         Mockito.when(libraryMock.getAvailableItemsPerType(LibraryItemType.BOOK)).thenReturn(addBooksToLibrary());
     }
@@ -68,7 +68,7 @@ public class CustomerMenuOptionHandlerTest {
     public void handleMenuOptionSelected_checkoutAvailableBook_printsSuccessMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Narnia");
-        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.BOOK), eq(user))).thenReturn(true);
+        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.BOOK), eq(user.getLibraryNumber()))).thenReturn(true);
 
         //act
         customerMenuOptionHandler.handleMenuOptionSelected(2);
@@ -82,7 +82,7 @@ public class CustomerMenuOptionHandlerTest {
     public void handleMenuOptionSelected_checkoutNotAvailableBook_printsErrorMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Divergent");
-        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.BOOK), eq(user))).thenReturn(false);
+        Mockito.when(libraryMock.checkoutItem(anyString(),eq(LibraryItemType.BOOK), eq(user.getLibraryNumber()))).thenReturn(false);
 
         //act
         customerMenuOptionHandler.handleMenuOptionSelected(2);
@@ -95,7 +95,7 @@ public class CustomerMenuOptionHandlerTest {
     public void handleMenuOptionSelected_returnCheckedOutBook_printsSuccessMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Narnia");
-        Mockito.when(libraryMock.returnBook(anyString(), eq(user))).thenReturn(true);
+        Mockito.when(libraryMock.returnBook(anyString(), eq(user.getLibraryNumber()))).thenReturn(true);
 
         //act
         customerMenuOptionHandler.handleMenuOptionSelected(3);
@@ -108,7 +108,7 @@ public class CustomerMenuOptionHandlerTest {
     public void handleMenuOptionSelected_returnNotCheckedOutBook_printsErrorMsg() {
         //arrange
         Mockito.when(consoleMock.readString()).thenReturn("Divergent");
-        Mockito.when(libraryMock.returnBook(anyString(), eq(user))).thenReturn(false);
+        Mockito.when(libraryMock.returnBook(anyString(), eq(user.getLibraryNumber()))).thenReturn(false);
 
         //act
         customerMenuOptionHandler.handleMenuOptionSelected(3);

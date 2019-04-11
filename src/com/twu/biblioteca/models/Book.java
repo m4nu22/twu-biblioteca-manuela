@@ -7,7 +7,7 @@ public class Book extends LibraryItem {
     private String author;
 
     public Book(int id, String title, String author, String publicationYear) {
-        super(id, title, publicationYear,LibraryItemType.BOOK);
+        super(id, title, publicationYear, LibraryItemType.BOOK);
         this.author = author;
     }
 
