@@ -6,7 +6,8 @@ public enum CustomerMenuOptions {
     CHECKOUT_BOOK("2 - Checkout Book"),
     RETURN_BOOK("3 - Return Book"),
     LIST_MOVIES("4 - List of movies"),
-    CHECKOUT_MOVIE("5 - Checkout MOVIE");
+    CHECKOUT_MOVIE("5 - Checkout movie"),
+    PRINT_MY_INFO("6 - Print my info");
 
     private String description;
 

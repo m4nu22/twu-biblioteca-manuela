@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 
 import java.util.InputMismatchException;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 
@@ -33,7 +34,6 @@ public class LibraryMenuTest {
 
         //assert
         Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!"));
-
     }
 
     @Test
@@ -43,11 +43,10 @@ public class LibraryMenuTest {
         Mockito.when(consoleMock.readInt()).thenThrow(new InputMismatchException()).thenReturn(0);
 
         //act
-            libraryMenu.showMenuAndHandleOptionSelection(UserRole.CUSTOMER);
+        libraryMenu.showMenuAndHandleOptionSelection(UserRole.CUSTOMER);
 
         //assert
-            Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
-
+        Mockito.verify(printerMock, times(1)).printLn(ArgumentMatchers.eq("Please select a valid option!"));
     }
 
     @Test
@@ -61,11 +60,10 @@ public class LibraryMenuTest {
 
         //assert
         Mockito.verify(printerMock, never()).printLn(ArgumentMatchers.eq("Please select a valid option!"));
-
     }
 
     @Test
-    public void showMenuAndHandleOptionSelection_customer_printsCustomerMenu(){
+    public void showMenuAndHandleOptionSelection_customer_printsCustomerMenu() {
         //arrange
         Mockito.when(consoleMock.readInt()).thenReturn(0);
 
@@ -73,11 +71,11 @@ public class LibraryMenuTest {
         libraryMenu.showMenuAndHandleOptionSelection(UserRole.CUSTOMER);
 
         //assert
-        Mockito.verify(printerMock).printLn(ArgumentMatchers.eq("0 - Quit\n1 - List of books\n2 - Checkout Book\n3 - Return Book\n4 - List of movies\n5 - Checkout MOVIE\n"));
+        Mockito.verify(printerMock).printLn(ArgumentMatchers.eq("0 - Quit\n1 - List of books\n2 - Checkout Book\n3 - Return Book\n4 - List of movies\n5 - Checkout movie\n6 - Print my info\n"));
     }
 
     @Test
-    public void showMenuAndHandleOptionSelection_librarian_printsLibrarianMenu(){
+    public void showMenuAndHandleOptionSelection_librarian_printsLibrarianMenu() {
         //arrange
         Mockito.when(consoleMock.readInt()).thenReturn(0);
 
@@ -86,7 +84,5 @@ public class LibraryMenuTest {
 
         //assert
         Mockito.verify(printerMock).printLn(ArgumentMatchers.eq("0 - Quit\n1 - List checkout books\n"));
-
     }
-
 }

@@ -49,20 +49,23 @@ public class LibraryMenu {
     }
 
     private void printMenuOfOptions(UserRole userRole) {
-        printer.printLn("\nLibrary Menu Options:");
+        if(userRole != null) {
 
-        String options = "";
+            printer.printLn("\nLibrary Menu Options:");
 
-        if(UserRole.CUSTOMER.equals(userRole)) {
-            for (CustomerMenuOptions opt : customerMenuOptions) {
-                options += (opt.getDescription()) + "\n";
+            String options = "";
+
+            if (UserRole.CUSTOMER.equals(userRole)) {
+                for (CustomerMenuOptions opt : customerMenuOptions) {
+                    options += (opt.getDescription()) + "\n";
+                }
+            } else if (userRole.LIBRARIAN.equals(userRole)) {
+                for (LibrarianMenuOptions opt : librarianMenuOptions) {
+                    options += (opt.getDescription()) + "\n";
+                }
             }
-        }else{
-            for (LibrarianMenuOptions opt : librarianMenuOptions) {
-                options += (opt.getDescription()) + "\n";
-            }
+
+            printer.printLn(options);
         }
-
-        printer.printLn(options);
     }
 }

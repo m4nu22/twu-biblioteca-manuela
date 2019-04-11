@@ -34,7 +34,6 @@ public class LibrarianMenuOptionHandlerTest {
 
         //assert
         Mockito.verify(printerMock, times(1)).printLn(eq("Library Item Name | User ID Number"));
-
     }
 
     @Test
@@ -44,7 +43,6 @@ public class LibrarianMenuOptionHandlerTest {
 
         //assert
         Mockito.verify(printerMock, times(1)).printLn(eq("Please select a valid option!"));
-
     }
 
     @Test
@@ -54,7 +52,6 @@ public class LibrarianMenuOptionHandlerTest {
 
         //assert
         Mockito.verify(printerMock, times(1)).printLn(eq("See you!"));
-
     }
 
     @Test

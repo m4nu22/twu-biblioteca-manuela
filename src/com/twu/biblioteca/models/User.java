@@ -71,7 +71,7 @@ public class User {
     public String toString() {
         return "Name: " + getName() +
                 " | Email: " + getEmail() +
-                " | Phone='" + getPhone();
+                " | Phone: " + getPhone();
     }
 
     @Override

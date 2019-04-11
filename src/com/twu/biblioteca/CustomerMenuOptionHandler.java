@@ -34,16 +34,19 @@ public class CustomerMenuOptionHandler implements IMenuOptionHandler {
                 printAvailableItems(LibraryItemType.BOOK);
                 break;
             case 2:
-                checkoutItem(LibraryItemType.BOOK, user.getLibraryNumber());
+                checkoutItem(LibraryItemType.BOOK);
                 break;
             case 3:
-                returnBook(user.getLibraryNumber());
+                returnBook();
                 break;
             case 4:
                 printAvailableItems(LibraryItemType.MOVIE);
                 break;
             case 5:
-                checkoutItem(LibraryItemType.MOVIE, user.getLibraryNumber());
+                checkoutItem(LibraryItemType.MOVIE);
+                break;
+            case 6:
+                printMyInfo();
                 break;
             default:
                 printer.printLn("Please select a valid option!");
@@ -57,21 +60,21 @@ public class CustomerMenuOptionHandler implements IMenuOptionHandler {
             printer.printList(libraryBooks);
     }
 
-    private void checkoutItem(LibraryItemType type, String userLibraryNumber) {
+    private void checkoutItem(LibraryItemType type) {
         String msg = String.format("Please type the name of the %s you want to checkout", type.toString().toLowerCase());
         String title = printMsgAndReturnConsoleResponse(msg);
 
-        boolean couldCheckout = library.checkoutItem(title, type, userLibraryNumber);
+        boolean couldCheckout = library.checkoutItem(title, type, user.getLibraryNumber());
 
         printMsgByCondition(couldCheckout,
                 String.format("Thank you! Enjoy the %s!", type.toString().toLowerCase()),
                 String.format("Sorry, that %s is not available", type.toString().toLowerCase()));
     }
 
-    private void returnBook(String userLibraryNumber) {
+    private void returnBook() {
         String bookTitle = printMsgAndReturnConsoleResponse("Please type the name of the book you want to return");
 
-        boolean couldReturn = library.returnBook(bookTitle, userLibraryNumber);
+        boolean couldReturn = library.returnBook(bookTitle, user.getLibraryNumber());
 
         printMsgByCondition(couldReturn, "Thank you for returning the book", "That is not a valid book to return");
     }
@@ -86,5 +89,17 @@ public class CustomerMenuOptionHandler implements IMenuOptionHandler {
             printer.printLn(successMsg);
         else
             printer.printLn(errorMsg);
+    }
+
+    private void printMyInfo(){
+        printer.printLn(user.toString());
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
